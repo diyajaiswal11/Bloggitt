@@ -10,3 +10,6 @@ def postlist(request):
 def postdetail(request, slug):
     post = Post.objects.get(slug=slug)
     return render(request, 'detail.html', {'post': post})
+    
+def aboutdetail(request):
+    return render(request,'about.html')
