@@ -1,4 +1,4 @@
-[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://snip-share.herokuapp.com/)&nbsp;
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)]()&nbsp;
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/diyajaiswal11/Bloggitt)&nbsp;
 
