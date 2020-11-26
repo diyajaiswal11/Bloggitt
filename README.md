@@ -51,9 +51,9 @@ python manage.py runserver
 ```
 - Push Changes
 ```
-$ git add .
-$ git commit -m "<your commit message>"
-$ git push origin <branch_name>
+git add .
+git commit -m "<your commit message>"
+git push origin <branch_name>
 ```
 
 
