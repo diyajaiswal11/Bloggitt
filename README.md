@@ -1,4 +1,4 @@
-# Bloggitts
+# Bloggitt
 
 Bloggitt is a basic blogging application which allows user to post and view blogs.
 
