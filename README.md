@@ -25,13 +25,13 @@ git checkout -b <branch_name>
 python -m venv env
 env\Scripts\activate
 ```
-- Headover to Project Directory- 
-```
-cd bloggitt
-```
 - Install dependencies using-
 ```
 pip install -r requirements.txt
+```
+- Headover to Project Directory- 
+```
+cd bloggitt
 ```
 - Make migrations using-
 ```
@@ -53,7 +53,7 @@ python manage.py runserver
 ```
 git add .
 git commit -m "<your commit message>"
-git push origin <branch_name>
+git push --set-upstream origin <branch_name>
 ```
 
 
