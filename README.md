@@ -1,10 +1,16 @@
-[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)]()&nbsp;
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/diyajaiswal11/Bloggitt)&nbsp;
 
 # Bloggitt 📝
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/1zSKmYy/6.jpg" alt="2" border="0"></a>
 
 Bloggitt is a blogging website that allows users to post their thoughts and knowledge with others.
+
+[![GitHub issues](https://img.shields.io/github/issues/diyajaiswal11/Bloggitt)](https://github.com/diyajaiswal11/Bloggitt/issues)
+[![GitHub forks](https://img.shields.io/github/forks/diyajaiswal11/Bloggitt)](https://github.com/diyajaiswal11/Bloggitt/network)
+[![GitHub stars](https://img.shields.io/github/stars/diyajaiswal11/Bloggitt)](https://github.com/diyajaiswal11/Bloggitt/stargazers)
+[![GitHub license](https://img.shields.io/github/license/diyajaiswal11/Bloggitt)](https://github.com/diyajaiswal11/Bloggitt/blob/main/LICENSE)
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) ![contributions welcome](https://img.shields.io/static/v1.svg?label=Contributions&message=Welcome&color=0059b3&style=flat-square) ![GitHub contributors](https://img.shields.io/github/contributors-anon/diyajaiswal11/Bloggitt) ![Maintenance](https://img.shields.io/maintenance/yes/2020)
+<br>
+
 
 ## Tech Stack
 - **Frontend:** HTML/CSS/Bootstrap
@@ -73,3 +79,8 @@ git push --set-upstream origin <branch_name>
 
 ## Like This?? Star ⭐ this Repo.
 > Made with ❤️ by Diya Jaiswal
+
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)  [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+
+
+
