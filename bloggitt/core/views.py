@@ -53,4 +53,5 @@ def postdetail(request, slug):
     return render(request, 'detail.html', {'post': post})
     
 def aboutdetail(request):
-    return render(request,'about.html')
+    context={}
+    return render(request,'about.html',context=context)
