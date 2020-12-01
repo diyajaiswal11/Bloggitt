@@ -46,7 +46,8 @@
                         <li class="nav-item text-black">
                             <a class="nav-link text-black font-weight-bold" href="{% url 'about' %}">About</a>
                         </li>
-                        
+                        {% block logout %}
+                        {% endblock %}
                     </ul>
                 </div>
             </div>

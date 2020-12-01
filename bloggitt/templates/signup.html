@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block title %}Signup{% endblock title %}
+
+{% block content %}
+<h1>SignUp</h1>
+<div id="formContent">
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username">
+        <input type="password" id="password1" class="fadeIn third" name="password1" placeholder="Password">
+        <input type="password" id="password2" class="fadeIn third" name="password2" placeholder="Confirm Password">
+        <input type="email" id="email" class="fadeIn third" name="email" placeholder="Email">
+        <input type="submit" class="fadeIn fourth" value="SignUp">
+    </form>
+    <div id="formFooter">
+        <a class="underlineHover" href="{% url 'login' %}">Login</a></a>
+    </div>
+
+</div>
+{% endblock content %}
