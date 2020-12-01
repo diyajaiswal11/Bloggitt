@@ -55,4 +55,19 @@
        
     </div>
 </div>
-{%endblock%}
+
+<div class="clearfix">
+    {% if post_list.has_other_pages %}
+       <nav aria-label="Page navigation container">
+       <ul class="pagination justify-content-center">
+          {% if post_list.has_previous %}
+          <li><a href="?page={{post_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+          {% endif %}
+          {% if post_list.has_next %}
+          <li><a href="?page={{post_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+          {% endif %}
+       </ul>
+       </nav>
+    {% endif %}
+</div>
+{% endblock %}
