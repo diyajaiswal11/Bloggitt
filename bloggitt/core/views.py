@@ -75,12 +75,12 @@ def Favorites(request, slug):
 
     if post not in Favourites.posts.all():
         Favourites.posts.add(post)
-        Favourites.save()
     else:
         Favourites.posts.remove(post)
-        Favourites.save()
     
-    return redirect('favourites')
+    Favourites.save()
+    
+    return redirect('post_detail', slug=slug)
 
 
 def favourites(request):
