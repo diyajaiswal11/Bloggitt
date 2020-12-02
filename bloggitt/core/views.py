@@ -3,6 +3,7 @@ from django.views import generic
 from .models import Post
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import SignupForm
 
@@ -44,9 +45,18 @@ def signup(request):
 def postlist(request):
     if not request.user.is_authenticated:
         return redirect('login')
+    
+    post_list= Paginator(Post.objects.all().order_by('-created_on'),2)
+    page= request.GET.get('page')
 
-    post_list=Post.objects.all().order_by('-created_on')
-    return render(request,'index.html',{'post_list':post_list})
+    try:
+        posts = post_list.page(page)
+    except PageNotAnInteger:
+        posts = post_list.page(1)
+    except EmptyPage:
+        posts = post_list.page(post_list.num_pages)
+
+    return render(request,'index.html',{'post_list':posts})
 
 def postdetail(request, slug):
     post = Post.objects.get(slug=slug)
