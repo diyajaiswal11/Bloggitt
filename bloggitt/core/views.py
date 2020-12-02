@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import generic
-from .models import Post
+from .models import Post, FavouritePost
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 
@@ -48,9 +48,47 @@ def postlist(request):
     post_list=Post.objects.all().order_by('-created_on')
     return render(request,'index.html',{'post_list':post_list})
 
+
 def postdetail(request, slug):
+    if not request.user.is_authenticated:
+        return redirect('login')
+        
     post = Post.objects.get(slug=slug)
-    return render(request, 'detail.html', {'post': post})
+    Favourites,_ = FavouritePost.objects.get_or_create(user=request.user)
+    post_in_favorites = None
+    if post in Favourites.posts.all():
+        post_in_favorites = True
+    else:
+        post_in_favorites = False
+
+    return render(request, 'detail.html', {'post': post, 'post_in_favorites': post_in_favorites})
+
+
+def Favorites(request, slug):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    user = request.user
+    Favourites = FavouritePost.objects.get(user=user)
+
+    post = Post.objects.get(slug=slug)
+
+    if post not in Favourites.posts.all():
+        Favourites.posts.add(post)
+        Favourites.save()
+    else:
+        Favourites.posts.remove(post)
+        Favourites.save()
+    
+    return redirect('favourites')
+
+
+def favourites(request):
+    user = request.user
+    FavPosts = FavouritePost.objects.get(user=user).posts.all()
+
+    return render(request, 'favourites.html', { 'FavPosts': FavPosts })
+
     
 def aboutdetail(request):
     context={}

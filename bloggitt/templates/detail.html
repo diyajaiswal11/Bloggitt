@@ -23,8 +23,15 @@
         <p class="card-text ">{{ post.content | safe }}</p>
       </div>
     </div>
-  
   </div>
+</div>
+
+<div class="container">
+  {% if not post_in_favorites %}
+    <a class="btn btn-success" href="{% url 'Favorites' post.slug %}">Add To Favourites</a>
+  {% else %}
+    <a class="btn btn-danger" href="{% url 'Favorites' post.slug %}">Delete from Favourites</a>
+  {% endif %}
 </div>
 
 {% endblock content %}
