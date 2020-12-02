@@ -69,7 +69,7 @@ def Favorites(request, slug):
         return redirect('login')
 
     user = request.user
-    Favourites = FavouritePost.objects.get(user=user)
+    Favourites,_ = FavouritePost.objects.get_or_create(user=user)
 
     post = Post.objects.get(slug=slug)
 
@@ -85,9 +85,9 @@ def Favorites(request, slug):
 
 def favourites(request):
     user = request.user
-    FavPosts = FavouritePost.objects.get(user=user).posts.all()
+    FavPosts,_ = FavouritePost.objects.get_or_create(user=user)
 
-    return render(request, 'favourites.html', { 'FavPosts': FavPosts })
+    return render(request, 'favourites.html', { 'FavPosts': FavPosts.posts.all() })
 
     
 def aboutdetail(request):
