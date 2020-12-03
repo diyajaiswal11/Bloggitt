@@ -4,6 +4,7 @@ from .models import Post, FavouritePost
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse
 
 from .forms import SignupForm
 
@@ -90,7 +91,7 @@ def Favorites(request, slug):
     
     Favourites.save()
     
-    return redirect('post_detail', slug=slug)
+    return HttpResponse('Success')
 
 
 def favourites(request):
