@@ -3,20 +3,25 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 
 # Create your models here.
-class Category(models.Model):
-    name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, unique=True)
-
-    class Meta:
-        ordering = ('name',)
-        verbose_name = 'category'
-        verbose_name_plural = 'categories'
-
-    def __str__(self):
-        return self.name
+CATEGORY_CHOICES = ( 
+    ("1", "Programming/Technology"), 
+    ("2", "Health/Fitness"), 
+    ("3", "Personal"), 
+    ("4", "Fashion"), 
+    ("5", "Food"), 
+    ("6", "Travel"), 
+    ("7", "Business"), 
+    ("8", "Art"),
+    ("9", "Other"), 
+)  
 
 class Post(models.Model):
-    category = models.ForeignKey(Category, on_delete= models.CASCADE)
+    
+    category = models.CharField( 
+        max_length = 20, 
+        choices = CATEGORY_CHOICES, 
+        default = '1'
+        ) 
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True, editable=False)
     author = models.ForeignKey(User, on_delete= models.CASCADE)
