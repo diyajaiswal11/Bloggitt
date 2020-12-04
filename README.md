@@ -1,6 +1,6 @@
 
 # Bloggitt 📝
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/1zSKmYy/6.jpg" alt="2" border="0"></a>
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/1zSKmYy/6.jpg" alt="2" border="0" width="600px"></a>
 
 Bloggitt is a blogging website that allows users to post their thoughts and knowledge with others.
 
@@ -11,12 +11,15 @@ Bloggitt is a blogging website that allows users to post their thoughts and know
 [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) ![contributions welcome](https://img.shields.io/static/v1.svg?label=Contributions&message=Welcome&color=0059b3&style=flat-square) ![GitHub contributors](https://img.shields.io/github/contributors-anon/diyajaiswal11/Bloggitt) ![Maintenance](https://img.shields.io/maintenance/yes/2020)
 <br>
 
+## Discord Channel
+[![chat on discord](https://img.shields.io/badge/chat-on%20discord-brightgreen)](https://discord.gg/Dc7EFCHR)
+
 
 ## Tech Stack
 - **Frontend:** HTML/CSS/Bootstrap
 - **Backend:** Django
 
-## Quick Start :
+## Quick Start
 
 - Fork and Clone the repository using-
 ```
@@ -55,7 +58,7 @@ python manage.py createsuperuser
 ```
 python manage.py runserver
 ```
-- Push Changes
+- Push Changes-
 ```
 git add .
 git commit -m "<your commit message>"
