@@ -7,6 +7,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 
 from .forms import SignupForm
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class HomeView(LoginRequiredMixin, TemplateView):
+    template_name = "home.html" 
 
 def loginUser(request):
     if request.method == 'POST':

@@ -12,6 +12,11 @@
         <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
         <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
+    <br>
+    <p><strong>-- OR --</strong></p>
+    <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+    <p></p>
+    <a href="{% url 'social:begin' 'github' %}">Login with Github</a> <br/>
     <div id="formFooter">
         <a class="underlineHover" href="{% url 'signup' %}">Don't have an account? SignUp</a></a>
     </div>
