@@ -12,7 +12,7 @@ Bloggitt is a blogging website that allows users to post their thoughts and know
 <br>
 
 ## Discord Channel
-[![chat on discord](https://img.shields.io/badge/chat-on%20discord-brightgreen)](https://discord.gg/Dc7EFCHR)
+[![chat on discord](https://img.shields.io/badge/chat-on%20discord-brightgreen)](https://discord.gg/eeGR2qvd9y)
 
 
 ## Tech Stack
