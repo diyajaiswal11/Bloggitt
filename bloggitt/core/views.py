@@ -65,6 +65,10 @@ def postdetail(request, slug):
         return redirect('login')
         
     post = Post.objects.get(slug=slug)
+
+    post.read_count += 1
+    post.save()
+
     Favourites,_ = FavouritePost.objects.get_or_create(user=request.user)
     post_in_favorites = None
     if post in Favourites.posts.all():

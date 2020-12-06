@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.db.models.signals import pre_save
+from .utils import get_read_time
 
 # Create your models here.
 CATEGORY_CHOICES = ( 
@@ -28,6 +30,8 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now= True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
+    read_count = models.IntegerField(default=0, editable=False)
+    read_time = models.IntegerField(default=0, editable=False)
 
     class Meta:
         ordering = ['-created_on']
@@ -38,6 +42,12 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title, allow_unicode=True)
         super().save(*args, **kwargs)
+
+def pre_save_post_receiver(sender, instance, *args, **kwargs):
+    if instance.content:
+        instance.read_time = get_read_time(instance.content)
+
+pre_save.connect(pre_save_post_receiver, sender=Post)
 
 
 
