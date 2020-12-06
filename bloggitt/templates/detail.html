@@ -35,10 +35,10 @@
         </p>
         <p class=" text-muted">{{ post.author }} | {{ post.created_on }}
         <br>
-          Estimated Read time: 
-          {% if post.read_time <= 1 %} < 1 Minute 
-          {% else %}{{ post.read_time }} minutes 
+          {% if post.read_time <= 1 %} 1
+          {% else %}{{ post.read_time }} 
           {% endif %}
+          min read
         </p>
         <p class="card-text ">{{ post.content | safe }}</p>
       </div>
