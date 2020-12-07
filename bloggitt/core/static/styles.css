@@ -96,6 +96,11 @@ a.button:focus {
   box-shadow: 0 0 0 0.3rem rgba(84, 164, 173, 0.726);
 }
 
+div.cred button:active,
+a.button:active {
+  transform: scale(0.95);
+}
+
 div.cred .formfooter {
   margin-top: 2rem;
   font-size: 1.2rem;
@@ -212,28 +217,28 @@ header nav ul li a {
 
 /* Blogs */
 
-.blogs .blog {
-  /* border: 0.01rem solid #4cf14c; */
+.blog {
+  position: relative;
   width: calc(100% - 6rem);
   margin: 3rem auto;
   padding: 2rem 0;
   border-radius: 0.8rem;
 }
 
-.blogs .blog .title {
+.blog .title {
   color: #2d6187;
   font-weight: 600;
   font-size: 2.4rem;
 }
 
-.blogs .blog .author {
+.blog .author {
   margin: 1.5rem 0;
   font-size: 1.3rem;
   color: #686666;
   font-size: 400;
 }
 
-.blogs .blog .post {
+.blog .post {
   font-size: 1.5rem;
   line-height: 1.8;
   color: #333333;
@@ -246,9 +251,12 @@ a.button {
   text-decoration: none;
 }
 
+/* pagination */
+
 .pagination {
   width: calc(100% - 6rem);
   margin: auto;
+  margin-bottom: 3rem;
 }
 
 .pagination ul {
@@ -275,8 +283,26 @@ a.button {
   border-radius: 0.6rem 0 0 0.6rem;
 }
 
+.pagination ul li:nth-last-child(2) {
+  padding: 0.5rem 1.8rem;
+}
+
 .pagination ul li a {
   color: #28abb9;
   font-family: sans-serif;
   text-decoration: none;
+}
+
+p.author.detail {
+  position: absolute;
+  top: 1.3rem;
+  right: 0;
+}
+
+a.button-red {
+  background-color: #dc3545;
+}
+
+a.button-green {
+  background-color: #28a745;
 }

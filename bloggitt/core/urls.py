@@ -10,4 +10,5 @@ urlpatterns = [
     path('detail/<slug:slug>/', views.postdetail, name='post_detail'),
     path('detail/<slug:slug>/Favourites', views.Favorites, name='Favorites'),
     path('about/',views.aboutdetail,name='about'),
+    path('dummy/',views.dummy,name='dummy'),
 ]

@@ -52,21 +52,21 @@ def signup(request):
 
 
 def postlist(request):
-    # if not request.user.is_authenticated:
-    #     return redirect('login')
+    if not request.user.is_authenticated:
+        return redirect('login')
     
-    # post_list= Paginator(Post.objects.all().order_by('-created_on'),2)
-    # page= request.GET.get('page')
+    post_list= Paginator(Post.objects.all().order_by('-created_on'),2)
+    page= request.GET.get('page')
 
-    # try:
-    #     posts = post_list.page(page)
-    # except PageNotAnInteger:
-    #     posts = post_list.page(1)
-    # except EmptyPage:
-    #     posts = post_list.page(post_list.num_pages)
+    try:
+        posts = post_list.page(page)
+    except PageNotAnInteger:
+        posts = post_list.page(1)
+    except EmptyPage:
+        posts = post_list.page(post_list.num_pages)
 
-    # return render(request,'index.html', {"post_list": posts})
-    return render(request, "index2.html")
+    return render(request,'index2.html', {"post_list": posts})
+    # return render(request, "index2.html")
 
 def postdetail(request, slug):
     if not request.user.is_authenticated:
@@ -84,7 +84,7 @@ def postdetail(request, slug):
     else:
         post_in_favorites = False
 
-    return render(request, 'detail.html', {'post': post, 'post_in_favorites': post_in_favorites})
+    return render(request, 'detail2.html', {'post': post, 'post_in_favorites': post_in_favorites})
 
 
 def Favorites(request, slug):
@@ -116,3 +116,6 @@ def favourites(request):
 def aboutdetail(request):
     context={}
     return render(request,'about.html',context=context)
+
+def dummy(request):
+    return render(request, "detail2.html")

@@ -1,27 +1,28 @@
-{% extends "base2.html" %} {% block content %} {% include "header.html" %}
-<div class="description">
-  <h2>Welcome to Bloggitt !!</h2>
-  <p>Share your thoughts and knowledge with us &#128515;</p>
-</div>
+{% extends "base2.html" %} {% block title %} Bloggit {% endblock title %} 
+{% block content %} {% include "header.html" %} {% include "description.html" %}
 <div class="blogs">
+  {% for post in post_list %}
   <article class="blog">
-    <h3 class="title">Lorem ipsum</h3>
-    <p class="author">Hari Ram J P | Dec 7 2020, 12.59 pm</p>
+    <h3 class="title">{{ post.title }}</h3>
+    <p class="author">{{ post.author }} | {{ post.created_on }}</p>
     <p class="post">
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. At incidunt
-      aspernatur repellat voluptate, deleniti totam libero quam placeat animi et
-      doloremque odit debitis porro. Obcaecati ratione neque similique non
-      blanditiis delectus quam earum saepe, eum fuga odit sit, reprehenderit
-      soluta impedit culpa odio quo, dolore aliquam et iusto sint? Tenetur!
+      {{ post.content|slice:":200" }}
     </p>
-    <a href="#" class="button">Read More &rarr;</a>
+    <a href="{% url 'post_detail' post.slug %}" class="button">Read More &rarr;</a>
   </article>
+  {% endfor %}
 </div>
+{% if post_list.has_previous or post_list.has_next %}
 <nav class="pagination">
   <ul>
-    <li><a href="#">&laquo;</a></li>
-    <li>1</li>
-    <li><a href="#">&raquo;</a></li>
+    {% if post_list.has_previous %}
+    <li><a href="?page={{ post_list.previous_page_number }}">&laquo;</a></li>
+    {% endif %}
+    <li>{{ post_list.number }}</li>
+    {% if post_list.has_next %}
+    <li><a href="?page={{ post_list.next_page_number }}">&raquo;</a></li>
+    {% endif %}
   </ul>
 </nav>
+{% endif %}
 {% endblock content %}
