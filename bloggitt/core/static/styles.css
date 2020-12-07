@@ -213,10 +213,10 @@ header nav ul li a {
 /* Blogs */
 
 .blogs .blog {
-  border: 0.01rem solid #4cf14c;
+  /* border: 0.01rem solid #4cf14c; */
   width: calc(100% - 6rem);
   margin: 3rem auto;
-  padding: 2rem;
+  padding: 2rem 0;
   border-radius: 0.8rem;
 }
 
@@ -243,5 +243,40 @@ header nav ul li a {
 
 a.button {
   display: inline-block;
+  text-decoration: none;
+}
+
+.pagination {
+  width: calc(100% - 6rem);
+  margin: auto;
+}
+
+.pagination ul {
+  display: flex;
+  list-style: none;
+  width: 12.1rem;
+  margin: auto;
+}
+
+.pagination ul li {
+  font-size: 2rem;
+  padding: 0.5rem 1.5rem;
+  border: 0.01rem solid #4cf14c;
+  border-right: 0;
+  background-color: #ffffff;
+}
+
+.pagination ul li:last-child {
+  border-right: 0.01rem solid #4cf14c;
+  border-radius: 0 0.6rem 0.6rem 0;
+}
+
+.pagination ul li:first-child {
+  border-radius: 0.6rem 0 0 0.6rem;
+}
+
+.pagination ul li a {
+  color: #28abb9;
+  font-family: sans-serif;
   text-decoration: none;
 }
