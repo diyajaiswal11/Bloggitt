@@ -19,7 +19,7 @@ def loginUser(request):
                 return redirect('home')
             else:
                 messages.error(request, "Invalid credentials")
-        return render(request, "login2.html")
+        return render(request, "login.html")
     return redirect("home")
 
 
@@ -44,11 +44,11 @@ def signup(request):
                 return redirect("home")
             except IntegrityError:
                 messages.info(request, "Try different Username")
-                return render(request, "signup2.html")
+                return render(request, "signup.html")
         messages.error(request, "Password doesn't match Confirm Password")
     if request.user.is_authenticated:
         return redirect('home')
-    return render(request, "signup2.html")
+    return render(request, "signup.html")
 
 
 def postlist(request):
@@ -65,8 +65,7 @@ def postlist(request):
     except EmptyPage:
         posts = post_list.page(post_list.num_pages)
 
-    return render(request,'index2.html', {"post_list": posts})
-    # return render(request, "index2.html")
+    return render(request,'index.html', {"post_list": posts})
 
 def postdetail(request, slug):
     if not request.user.is_authenticated:
@@ -84,7 +83,7 @@ def postdetail(request, slug):
     else:
         post_in_favorites = False
 
-    return render(request, 'detail2.html', {'post': post, 'post_in_favorites': post_in_favorites})
+    return render(request, 'detail.html', {'post': post, 'post_in_favorites': post_in_favorites})
 
 
 def Favorites(request, slug):
@@ -110,12 +109,9 @@ def favorites(request):
     user = request.user
     FavPosts,_ = FavouritePost.objects.get_or_create(user=user)
 
-    return render(request, 'index2.html', { 'post_list': FavPosts.posts.all(), 'favorites': True})
+    return render(request, 'index.html', { 'post_list': FavPosts.posts.all(), 'favorites': True})
 
     
 def about(request):
     context={}
     return render(request,'about.html',context=context)
-
-def dummy(request):
-    return render(request, "detail2.html")

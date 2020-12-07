@@ -1,60 +1,39 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-<header class="masthead">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class=" col-md-8 col-md-10 mx-auto">
-        <div class="site-heading">
-          <h3 class=" site-heading my-4 mt-3 text-white">Welcome to Bloggitt !!</h3>
-          <p class="text-light">Share your thoughts and knowledge with us &#128515;
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 left  top">
-      <div class="card-body">
-        <h1>
-          {% block title %} {{ post.title }} {% endblock title %}
-        </h1>
-        <p>{{ post.read_count }}
-          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye" fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z" />
-            <path fill-rule="evenodd"
-              d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-          </svg>
-        </p>
-        <p class=" text-muted">{{ post.author }} | {{ post.created_on }}
-        <br>
-          {% if post.read_time <= 1 %} 1
-          {% else %}{{ post.read_time }} 
-          {% endif %}
-          min read
-        </p>
-        <p class="card-text ">{{ post.content | safe }}</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container">
+{% extends "base.html" %} {% load static %} {% block title %} {{ post.title }} {% endblock title %}
+{% block content %} {% include "header.html" %} {% include "description.html" %}
+<article class="blog">
+  <h3 class="title">{{ post.title }}</h3>
+  <p class="author">{{ post.author }} | {{ post.created_on }}</p>
+  <p class="author detail">
+    {{ post.read_count }}
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 16 16"
+      class="bi bi-eye"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z"
+      />
+      <path
+        fill-rule="evenodd"
+        d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"
+      />
+    </svg>
+    | {% if post.read_time <= 1 %} 1 {% else %}{{ post.read_time }} {% endif %}
+    min read
+  </p>
+  <p class="post">
+    {{ post.content | safe }}
+  </p>
   {% if not post_in_favorites %}
-  <a class="btn btn-success" onclick="toggle()" data-slug="{{ post.slug }}">Add To Favourites</a>
+  <a class="button button-green" onclick="toggle()" data-slug="{{ post.slug }}">Add To Favourites</a>
   {% else %}
-  <a class="btn btn-danger" id="del" onclick="toggle()" data-slug="{{ post.slug }}">Delete from Favourites</a>
+  <a class="button button-red" id="del" onclick="toggle()" data-slug="{{ post.slug }}">Delete from Favourites</a>
   {% endif %}
-</div>
-
+</article>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="{% static 'detail.js' %}" type="text/javascript"></script>
-
 {% endblock content %}

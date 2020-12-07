@@ -1,84 +1,28 @@
-{% extends "base.html" %} 
-
-{% block logout %}
-<li class="nav-item text-black">
-    <a class="nav-link text-black font-weight-bold" href="{% url 'favourites' %}">Favourites</a>
-</li>
-
-<li class="nav-item text-black">
-    <a class="nav-link text-black font-weight-bold" href="{% url 'logout' %}">Logout</a>
-</li>
-{% endblock %}
-
-{% block content %}
-<style>
-    body {
-        font-family: "Roboto", sans-serif;
-        font-size: 18px;
-        background-color: #fdfdfd;
-    }
-    
-    .head_text {
-        color: white;
-    }
-    
-    .card {
-        box-shadow: 0 16px 48px #E3E7EB;
-    }
-</style>
-
-<header class="masthead">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class=" col-md-8 col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white">Welcome to Bloggitt !!</h3>
-                    <p class="text-light">Share your thoughts and knowledge with us &#128515;
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-<div class="container">
-    <div class="row">
-        
-        <div class="col-md-8 mt-3 left">
-            {% for post in post_list %}
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h2 class="card-title">{{ post.title }}</h2>
-                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-                    <p class="card-text">{{post.content|slice:":200" }}</p>
-                    <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
-                </div>
-            </div>
-            {% endfor %}
-
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  {% if post_list.has_previous %}
-                   <li class="page-item">
-                     <a class="page-link" href="?page={{post_list.previous_page_number}}" aria-label="Previous">
-                       <span aria-hidden="true">&laquo;</span>
-                     </a>
-                   </li>
-                  {% endif %}
-                  <li class="page-item"><a class="page-link" href="#">{{post_list.number}}</a></li>
-                  {% if post_list.has_next %}
-                   <li class="page-item">
-                     <a class="page-link" href="?page={{post_list.next_page_number}}" aria-label="Next">
-                       <span aria-hidden="true">&raquo;</span>
-                     </a>
-                   </li>
-                  {% endif %}
-                </ul>
-            </nav>
-        </div>
-
-        
-       
-    </div>
+{% extends "base.html" %} {% block title %} Bloggit {% endblock title %} 
+{% block content %} {% include "header.html" %} {% include "description.html" %}
+<div class="blogs">
+  {% for post in post_list %}
+  <article class="blog">
+    <h3 class="title">{{ post.title }}</h3>
+    <p class="author">{{ post.author }} | {{ post.created_on }}</p>
+    <p class="post">
+      {{ post.content|slice:":200" }}
+    </p>
+    <a href="{% url 'post_detail' post.slug %}" class="button">Read More &rarr;</a>
+  </article>
+  {% endfor %}
 </div>
-{%endblock%}
+{% if post_list.has_previous or post_list.has_next %}
+<nav class="pagination">
+  <ul>
+    {% if post_list.has_previous %}
+    <li><a href="?page={{ post_list.previous_page_number }}">&laquo;</a></li>
+    {% endif %}
+    <li>{{ post_list.number }}</li>
+    {% if post_list.has_next %}
+    <li><a href="?page={{ post_list.next_page_number }}">&raquo;</a></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+{% endblock content %}
