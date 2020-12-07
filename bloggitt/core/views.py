@@ -5,6 +5,7 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
+from django.contrib import messages
 
 from .forms import SignupForm
 
@@ -19,7 +20,19 @@ def loginUser(request):
 
     #     return render(request, 'login.html', { 'errorMsg': "Invalid credentials entered" })
     
-    return render(request, "login2.html")
+    # return render(request, "login.html")
+
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            user = authenticate(username=request.POST.get("username"), password=request.POST.get("password"))
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Logged In Successfully")
+                return redirect('home')
+            else:
+                messages.error(request, "Invalid credentials")
+        return render(request, "login2.html")
+    return redirect("index")
 
 
 def logoutUser(request):

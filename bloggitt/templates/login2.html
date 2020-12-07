@@ -2,8 +2,8 @@
 {% block content %}
 <div class="cred">
   <h2>Login</h2>
-  {% csrf_token %}
-  <form action="#">
+  <form action="{% url "login" %}" method="POST">
+    {% csrf_token %}
     <div class="input">
       <input type="text" name="username" placeholder="Username" autocomplete="off" />
     </div>

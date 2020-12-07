@@ -13,6 +13,11 @@
   </head>
   <body>
     {% block content %} {% endblock content %}
+    <div>
+      {% for message in messages %}
+      <p class="{{message.tags}}">{{message}}</p>
+      {% endfor %}
+    </div>
     <script>
       const inputs = document.querySelectorAll("div.input input");
       inputs.forEach((input) => {
