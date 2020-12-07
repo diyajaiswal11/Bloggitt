@@ -1,21 +1,25 @@
-{% extends 'layout.html' %}
-
-{% block title %}Signup{% endblock title %}
-
+{% extends "base.html" %} {% block title %} Sign up {% endblock title %}
 {% block content %}
-<h1>SignUp</h1>
-<div id="formContent">
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username">
-        <input type="password" id="password1" class="fadeIn third" name="password1" placeholder="Password">
-        <input type="password" id="password2" class="fadeIn third" name="password2" placeholder="Confirm Password">
-        <input type="email" id="email" class="fadeIn third" name="email" placeholder="Email">
-        <input type="submit" class="fadeIn fourth" value="SignUp">
-    </form>
-    <div id="formFooter">
-        <a class="underlineHover" href="{% url 'login' %}">Login</a></a>
+<div class="cred">
+  <h2>Sign up</h2>
+  <form action="{% url "signup" %}" method="POST">
+    {% csrf_token %}
+    <div class="input">
+      <input type="text" name="username" placeholder="Username" autocomplete="off" required/>
     </div>
-
+    <div class="input">
+      <input type="password" name="password" placeholder="Password" autocomplete="off" required/>
+    </div>
+    <div class="input">
+      <input type="password" name="password-c" placeholder="Confirm password" autocomplete="off" required/>
+    </div>
+    <div class="input">
+      <input type="email" name="email" placeholder="Email" autocomplete="off" required/>
+    </div>
+    <button type="submit" id="submit-btn">Sign up</button>
+  </form>
+  <div class="formfooter">
+    <p>Have an account? <a href="{% url "login" %}">Login</a></p>
+  </div>
 </div>
 {% endblock content %}

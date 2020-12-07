@@ -1,21 +1,20 @@
-{% extends 'layout.html' %}
-
-{% block title %}Login{% endblock title %}
-
+{% extends "base.html" %} {% block title %} Login {% endblock title %}
 {% block content %}
-<h1>Login</h1>
-<div id="formContent">
-    <!-- Login Form -->
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" id="username" class="fadeIn second" name="username" placeholder="username">
-        <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
-        <input type="submit" class="fadeIn fourth" value="Log In">
-    </form>
-    <div id="formFooter">
-        <a class="underlineHover" href="{% url 'signup' %}">Don't have an account? SignUp</a>
-        <a class="underlineHover" href="/reset/password_reset/">Forgot Password? Reset here</a>
+<div class="cred">
+  <h2>Login</h2>
+  <form action="{% url "login" %}" method="POST">
+    {% csrf_token %}
+    <div class="input">
+      <input type="text" name="username" placeholder="Username" autocomplete="off" required/>
     </div>
-
+    <div class="input">
+      <input type="password" name="password" placeholder="Password" autocomplete="off" required/>
+    </div>
+    <button type="submit" id="submit-btn">Login</button>
+  </form>
+  <div class="formfooter">
+    <p>New User? <a href="{% url "signup" %}">Sign up</a></p>
+    <p><a href="/reset/password_reset/">Forget Password</a></p>
+  </div>
 </div>
 {% endblock content %}

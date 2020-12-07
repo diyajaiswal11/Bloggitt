@@ -11,42 +11,50 @@ from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.shortcuts import render,get_object_or_404
 
+from django.contrib import messages
 
-from .forms import SignupForm
+from django.db import IntegrityError
 
 def loginUser(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('home')
-
-        return render(request, 'login.html', { 'errorMsg': "Invalid credentials entered" })
-    
-    return render(request, 'login.html')
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            user = authenticate(username=request.POST.get("username"), password=request.POST.get("password"))
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Logged In Successfully")
+                return redirect('home')
+            else:
+                messages.error(request, "Invalid credentials")
+        return render(request, "login.html")
+    return redirect("home")
 
 
 def logoutUser(request):
     logout(request)
+    messages.info(request, "Logged out of Bloggit")
     return redirect('login')
 
 
 def signup(request):
     if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('home')
-            
-        return render(request, 'signup.html', { 'errorMsg': "Please try different credentials" })
-    
-    return render(request, 'signup.html')
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        password_c = request.POST.get("password-c")
+        if (password == password_c):
+            try:
+                user = User.objects.create_user(username, email, password);
+                user.save()
+                login(request, user)
+                messages.success(request, "Logged In Successfully")
+                return redirect("home")
+            except IntegrityError:
+                messages.info(request, "Try different Username")
+                return render(request, "signup.html")
+        messages.error(request, "Password doesn't match Confirm Password")
+    if request.user.is_authenticated:
+        return redirect('home')
+    return render(request, "signup.html")
 
 
 def postlist(request):
@@ -63,8 +71,7 @@ def postlist(request):
     except EmptyPage:
         posts = post_list.page(post_list.num_pages)
 
-    return render(request,'index.html',{'post_list':posts})
-
+    return render(request,'index.html', {"post_list": posts})
 
 def postdetail(request, slug):
     if not request.user.is_authenticated:
@@ -104,14 +111,14 @@ def Favorites(request, slug):
     return HttpResponse('Success')
 
 
-def favourites(request):
+def favorites(request):
     user = request.user
     FavPosts,_ = FavouritePost.objects.get_or_create(user=user)
 
-    return render(request, 'favourites.html', { 'FavPosts': FavPosts.posts.all() })
+    return render(request, 'index.html', { 'post_list': FavPosts.posts.all(), 'favorites': True})
 
     
-def aboutdetail(request):
+def about(request):
     context={}
     return render(request,'about.html',context=context)
 
