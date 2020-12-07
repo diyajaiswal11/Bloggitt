@@ -5,6 +5,12 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
+from django.views.generic import RedirectView
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+from django.shortcuts import render,get_object_or_404
+
 
 from .forms import SignupForm
 
@@ -65,6 +71,10 @@ def postdetail(request, slug):
         return redirect('login')
         
     post = Post.objects.get(slug=slug)
+
+    post.read_count += 1
+    post.save()
+
     Favourites,_ = FavouritePost.objects.get_or_create(user=request.user)
     post_in_favorites = None
     if post in Favourites.posts.all():
@@ -104,3 +114,47 @@ def favourites(request):
 def aboutdetail(request):
     context={}
     return render(request,'about.html',context=context)
+
+class PostLikeToggle(RedirectView):
+    def get_redirect_url(self,*args, **kwargs):
+        id_ = self.kwargs.get("slug")
+        obj = get_object_or_404(Post,slug=id_)
+        url_ = obj.get_absolute_url()
+        user = self.request.user
+        if user.is_authenticated:
+            if user in obj.likes.all():
+                 obj.likes.remove(user)
+            else:
+                obj.likes.add(user)
+        return url_
+
+class PostLikeAPIToggle(APIView):
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, slug=None,format=None):
+        obj = get_object_or_404(Post,slug=slug)
+        url_ = obj.get_absolute_url()
+        user = self.request.user
+        updated = False
+        liked = False
+        verb = None
+        if user.is_authenticated:
+            if user in obj.likes.all():
+                liked = False
+                verb = 'Like'
+                obj.likes.remove(user)
+                count = obj.likes.all().count()
+            else:
+                liked = True
+                verb = 'Unlike'
+                obj.likes.add(user)
+                count = obj.likes.all().count()
+            updated = True
+        data = {
+            "updated":updated,
+            "liked":liked,
+            "count":count,
+            "verb":verb
+        }
+        return Response(data)
