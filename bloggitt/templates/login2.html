@@ -1,0 +1,20 @@
+{% extends "base2.html" %} {% block title %} Login {% endblock title %}
+{% block content %}
+<div class="cred">
+  <h2>Login</h2>
+  {% csrf_token %}
+  <form action="#">
+    <div class="input">
+      <input type="text" name="username" placeholder="Username" autocomplete="off" />
+    </div>
+    <div class="input">
+      <input type="password" name="password" placeholder="Password" autocomplete="off" />
+    </div>
+    <button type="submit" id="submit-btn">Login</button>
+  </form>
+  <div class="formfooter">
+    <p>New User? <a href="#">Sign up</a></p>
+    <p><a href="#">Forget Password</a></p>
+  </div>
+</div>
+{% endblock content %}

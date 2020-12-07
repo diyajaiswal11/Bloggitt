@@ -9,17 +9,17 @@ from django.http import HttpResponse
 from .forms import SignupForm
 
 def loginUser(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('home')
+    # if request.method == 'POST':
+    #     username = request.POST['username']
+    #     password = request.POST['password']
+    #     user = authenticate(username=username, password=password)
+    #     if user:
+    #         login(request, user)
+    #         return redirect('home')
 
-        return render(request, 'login.html', { 'errorMsg': "Invalid credentials entered" })
+    #     return render(request, 'login.html', { 'errorMsg': "Invalid credentials entered" })
     
-    return render(request, 'login.html')
+    return render(request, "login2.html")
 
 
 def logoutUser(request):
@@ -28,19 +28,19 @@ def logoutUser(request):
 
 
 def signup(request):
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('home')
+    # if request.method == 'POST':
+    #     form = SignupForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         username = form.cleaned_data['username']
+    #         password = form.cleaned_data['password1']
+    #         user = authenticate(username=username, password=password)
+    #         login(request, user)
+    #         return redirect('home')
             
-        return render(request, 'signup.html', { 'errorMsg': "Please try different credentials" })
+    #     return render(request, 'signup.html', { 'errorMsg': "Please try different credentials" })
     
-    return render(request, 'signup.html')
+    return render(request, 'signup2.html')
 
 
 def postlist(request):

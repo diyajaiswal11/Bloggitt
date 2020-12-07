@@ -1,0 +1,116 @@
+/* css resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  position: relative;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  font-family: Poppins, sans-serif;
+  background-color: #effad3;
+}
+
+div.cred {
+  border: 0.01rem solid #4cf14c;
+  border-radius: 0.8rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  width: 40rem;
+  text-align: center;
+}
+
+div.cred h2 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #2d6187;
+}
+
+div.input {
+  width: 100%;
+  margin-bottom: 2rem;
+  border-bottom: 0.01rem solid rgba(45, 97, 135, 0.384);
+  position: relative;
+}
+
+div.input input {
+  width: inherit;
+  padding: 1rem 1.1rem;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: inherit;
+}
+
+div.input input::placeholder {
+  font-family: Poppins, sans-serif;
+  font-size: 1.2rem;
+}
+
+div.input::before {
+  content: "";
+  position: absolute;
+  bottom: -0.01rem;
+  width: 0;
+  height: 0.05rem;
+  background-color: #28abb9;
+  left: 0;
+  transition: width 0.5s ease;
+}
+
+div.input.focusing::before {
+  width: 100%;
+}
+
+div.cred button {
+  padding: 1.5rem 4rem;
+  border-radius: 0.8rem;
+  border: none;
+  background-color: #2d6187;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.4rem;
+  outline: 0;
+}
+
+div.cred button:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.3rem rgba(84, 164, 173, 0.726);
+}
+
+div.cred .formfooter {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: #333333;
+}
+
+div.cred .formfooter p:last-child {
+  margin-top: 0.5rem;
+}
+
+div.cred .formfooter p a {
+  color: #28abb9;
+  text-decoration: none;
+}
+
+@media (max-width: 440px) {
+  div.cred {
+    width: 90%;
+  }
+}

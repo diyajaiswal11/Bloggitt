@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,600"
+      rel="stylesheet"
+    />
+    <title>{% block title %} {% endblock title %}</title>
+    <link rel="stylesheet" href="{% static "styles.css" %}">
+  </head>
+  <body>
+    {% block content %} {% endblock content %}
+    <script>
+      const inputs = document.querySelectorAll("div.input input");
+      inputs.forEach((input) => {
+        input.addEventListener("focus", () =>
+          input.parentElement.classList.add("focusing")
+        );
+        input.addEventListener("blur", () =>
+          input.parentElement.classList.remove("focusing")
+        );
+      });
+    </script>
+  </body>
+</html>
