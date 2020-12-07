@@ -1,100 +1,71 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-
-    <head>
-        <title>Bloggitt</title>
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-        <meta name="google" content="notranslate" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="{% static 'font-awesome.css' %}">
-
-
-
-    </head>
-
-    <body>
-        <style>
-            body {
-            font-family: "Roboto", sans-serif;
-            font-size: 17px;
-            background-color: #fdfdfd;
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:200,400,500,600"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
+    <title>{% block title %} {% endblock title %}</title>
+    <link rel="stylesheet" href="{% static "styles.css" %}">
+    <link rel="stylesheet" href="{% static 'font-awesome.css' %}" />
+  </head>
+  <body>
+    {% block content %} {% endblock content %}
+    <div>
+      {% for message in messages %}
+      <p class="{{message.tags}}">{{message}}</p>
+      {% endfor %}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      const inputs = document.querySelectorAll("div.input input");
+      inputs.forEach((input) => {
+        input.addEventListener("focus", () =>
+          input.parentElement.classList.add("focusing")
+        );
+        input.addEventListener("blur", () =>
+          input.parentElement.classList.remove("focusing")
+        );
+      });
+      function updateText(btn, newCount, verb) {
+        $("#pTest").text(newCount);
+      }
+      $(".like-btn").click(function (e) {
+        e.preventDefault();
+        var this_ = $(this);
+        var likeUrl = this_.attr("data-href");
+        if (likeUrl) {
+          $.ajax({
+            url: likeUrl,
+            method: "GET",
+            data: {},
+            success: function (data) {
+              var newLikes;
+              if (data.liked) {
+                //add one like
+                updateText(this_, data.count, data.verb);
+                $("#hid").removeClass("fa-heart-o").addClass("fa-heart");
+              } else {
+                //remove one like
+                $("#hid").removeClass("fa-heart").addClass("fa-heart-o");
+                updateText(this_, data.count, data.verb);
+              }
+            },
+            error: function (error) {
+              alert("Oops! Error Occurred");
+            },
+          });
         }
-        .shadow {
-            box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
-        }
-        .btn-danger {
-            color: #fff;
-            background-color: #f00000;
-            border-color: #dc281e;
-        }
-        .masthead {
-            background: #3398E1;
-            height: auto;
-            padding-bottom: 15px;
-            box-shadow: 0 16px 48px #E3E7EB;
-            padding-top: 10px;
-        }
-    </style>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow" id="mainNav">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'home' %}">Bloggitt</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="{% url 'about' %}">About</a>
-                        </li>
-                        {% block logout %}
-                        {% endblock %}
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        {% block content %}
-        {% endblock content %}
-         <script>
-        $(document).ready(function() {
-            function updateText(btn, newCount, verb) {
-                $('#pTest').text(newCount)
-            }
-            $(".like-btn").click(function(e) {
-                e.preventDefault()
-                var this_ = $(this)
-                var likeUrl = this_.attr("data-href")
-                if (likeUrl) {
-                    $.ajax({
-                        url: likeUrl,
-                        method: "GET",
-                        data: {},
-                        success: function(data) {
-                            var newLikes;
-                            if (data.liked) {
-                                //add one like
-                                updateText(this_, data.count, data.verb)
-                                $("#hid").removeClass("fa-heart-o").addClass("fa-heart");
-                            } else {
-                                //remove one like
-                                $("#hid").removeClass("fa-heart").addClass("fa-heart-o");;
-                                updateText(this_, data.count, data.verb)
-                            }
-                        },
-                        error: function(error) {
-                            alert("Oops! Error Occurred");
-                        }
-                    })
-                }
-            })
-        })
+      });
     </script>
-        
-    </body>
+  </body>
 </html>
