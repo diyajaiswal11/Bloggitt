@@ -34,6 +34,7 @@ class Post(models.Model):
     read_count = models.IntegerField(default=0, editable=False)
     read_time = models.IntegerField(default=0, editable=False)
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
+    image = models.ImageField(null=True, blank=True, upload_to='images/')
 
 
     class Meta:

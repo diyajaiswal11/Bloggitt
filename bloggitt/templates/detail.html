@@ -32,24 +32,32 @@
             <path fill-rule="evenodd"
               d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
           </svg>
-          &nbsp 
-           {% if user.is_authenticated %}
-                        {% if user in post.likes.all %}
-                        <a class='like-btn' style="color: red" data-href="{{ post.get_api_like_url }}" data-likes="{{ post.likes.count }}" href=""><i class="fa fa-heart fa-lg" style="color: red" aria-hidden="true" id="hid" ></i> <span id="pTest">{{ post.likes.count }}</span></a>
-                        {% else %}
-                        <a class='like-btn' style="color: red" data-href="{{ post.get_api_like_url }}" data-likes="{{ post.likes.count }}" href=""><i class="fa fa-heart-o fa-lg" style="color: red" aria-hidden="true" id="hid"></i> <span id="pTest">{{ post.likes.count }}</span></a>
-                        {% endif %}
-            {% else %}
-                        <i class="fa fa-heart-o fa-lg" style="color: red" aria-hidden="true" id="hid"></i><a class='ml-2 h6' style="color: red" href="{% url 'login' %}"> {{ post.likes.count }}</a>
-            {% endif %}
+          &nbsp
+          {% if user.is_authenticated %}
+          {% if user in post.likes.all %}
+          <a class='like-btn' style="color: red" data-href="{{ post.get_api_like_url }}"
+            data-likes="{{ post.likes.count }}" href=""><i class="fa fa-heart fa-lg" style="color: red"
+              aria-hidden="true" id="hid"></i> <span id="pTest">{{ post.likes.count }}</span></a>
+          {% else %}
+          <a class='like-btn' style="color: red" data-href="{{ post.get_api_like_url }}"
+            data-likes="{{ post.likes.count }}" href=""><i class="fa fa-heart-o fa-lg" style="color: red"
+              aria-hidden="true" id="hid"></i> <span id="pTest">{{ post.likes.count }}</span></a>
+          {% endif %}
+          {% else %}
+          <i class="fa fa-heart-o fa-lg" style="color: red" aria-hidden="true" id="hid"></i><a class='ml-2 h6'
+            style="color: red" href="{% url 'login' %}"> {{ post.likes.count }}</a>
+          {% endif %}
         </p>
         <p class=" text-muted">{{ post.author }} | {{ post.created_on }}
-        <br>
+          <br>
           {% if post.read_time <= 1 %} 1
-          {% else %}{{ post.read_time }} 
+          {% else %}{{ post.read_time }}
           {% endif %}
           min read
         </p>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" style="height: 7cm; width: 15cm;" />
+        {% endif %}
         <p class="card-text ">{{ post.content | safe }}</p>
       </div>
     </div>
@@ -58,13 +66,13 @@
 
 <div class="container">
   {% if not post_in_favorites %}
-  <a class="btn btn-success" onclick="toggle()" data-slug="{{ post.slug }}">Add To Favourites</a>
-  {% else %}
-  <a class="btn btn-danger" id="del" onclick="toggle()" data-slug="{{ post.slug }}">Delete from Favourites</a>
-  {% endif %}
-</div>
+        <a class="btn btn-success" onclick="toggle()" data-slug="{{ post.slug }}">Add To Favourites</a>
+        {% else %}
+        <a class="btn btn-danger" id="del" onclick="toggle()" data-slug="{{ post.slug }}">Delete from Favourites</a>
+        {% endif %}
+      </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="{% static 'detail.js' %}" type="text/javascript"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script src="{% static 'detail.js' %}" type="text/javascript"></script>
 
-{% endblock content %}
+      {% endblock content %}
