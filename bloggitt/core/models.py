@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.db.models.signals import pre_save
 from .utils import get_read_time
+from django.urls import reverse
 
 # Create your models here.
 CATEGORY_CHOICES = ( 
@@ -32,6 +33,8 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     read_count = models.IntegerField(default=0, editable=False)
     read_time = models.IntegerField(default=0, editable=False)
+    likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
+
 
     class Meta:
         ordering = ['-created_on']
@@ -42,6 +45,16 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title, allow_unicode=True)
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={"slug":self.slug})
+
+    def get_like_url(self):
+        return reverse('like-toggle', kwargs={"slug":self.slug})
+    
+    def get_api_like_url(self):
+        return reverse('like-api-toggle', kwargs={"slug":self.slug})
+
 
 def pre_save_post_receiver(sender, instance, *args, **kwargs):
     if instance.content:
@@ -54,3 +67,4 @@ pre_save.connect(pre_save_post_receiver, sender=Post)
 class FavouritePost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     posts = models.ManyToManyField(Post)
+
