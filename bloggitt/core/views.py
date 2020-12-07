@@ -32,7 +32,7 @@ def loginUser(request):
             else:
                 messages.error(request, "Invalid credentials")
         return render(request, "login2.html")
-    return redirect("index")
+    return redirect("home")
 
 
 def logoutUser(request):
