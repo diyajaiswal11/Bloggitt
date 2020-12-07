@@ -106,14 +106,14 @@ def Favorites(request, slug):
     return HttpResponse('Success')
 
 
-def favourites(request):
+def favorites(request):
     user = request.user
     FavPosts,_ = FavouritePost.objects.get_or_create(user=user)
 
-    return render(request, 'favourites.html', { 'FavPosts': FavPosts.posts.all() })
+    return render(request, 'index2.html', { 'post_list': FavPosts.posts.all(), 'favorites': True})
 
     
-def aboutdetail(request):
+def about(request):
     context={}
     return render(request,'about.html',context=context)
 

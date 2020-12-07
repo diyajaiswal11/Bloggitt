@@ -210,6 +210,10 @@ header nav ul li a {
   margin-bottom: 1rem;
 }
 
+.description h2.fav {
+  margin-bottom: 0;
+}
+
 .description p {
   font-size: 1.6rem;
   font-weight: 200;
