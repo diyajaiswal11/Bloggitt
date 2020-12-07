@@ -11,13 +11,34 @@ Bloggitt is a blogging website that allows users to post their thoughts and know
 [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) ![contributions welcome](https://img.shields.io/static/v1.svg?label=Contributions&message=Welcome&color=0059b3&style=flat-square) ![GitHub contributors](https://img.shields.io/github/contributors-anon/diyajaiswal11/Bloggitt) ![Maintenance](https://img.shields.io/maintenance/yes/2020)
 <br>
 
-## Discord Channel
-[![chat on discord](https://img.shields.io/badge/chat-on%20discord-brightgreen)](https://discord.gg/eeGR2qvd9y)
-
 
 ## Tech Stack
 - **Frontend:** HTML/CSS/Bootstrap
 - **Backend:** Django
+
+
+## Open Source Contests
+
+## - KHARAGPUR WINTER OF CODE (KWOC'20)
+
+[![chat on discord](https://img.shields.io/badge/chat-on%20discord-brightgreen)](https://discord.gg/nmX6yyGY49)
+
+Kharagpur Winter of Code is a 5-week long online program for students who are new to open source software development. The program not only helps students to get involved in open source, but also prepares them for many open source summer programs; Google Summer of Code being one of them.
+
+<div >
+<img src="https://kwoc.kossiitkgp.org/static/media/circle.33e6ce0d.svg" alt="kwoc20" height="300" width="300"/>
+  </div>
+  
+## - NJACK WINTER OF CODE (NWOC'20)
+
+[![chat on discord](https://img.shields.io/badge/chat-on%20discord-brightgreen)](https://discord.gg/eeGR2qvd9y)
+
+NWoC (NJACK Winter of Code) is a program by NJACK (The Official Computer Science Club of IIT Patna) that helps students understand the paradigm of Open Source contribution and gives them real world software development experience.
+
+<div >
+<img src="https://njackwinterofcode.github.io/images/nwoc-logo.png" alt="nwoc20" height="300" />
+  </div>
+
 
 ## Quick Start
 
