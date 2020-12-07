@@ -6,7 +6,7 @@
     <h3 class="title">{{ post.title }}</h3>
     <p class="author">{{ post.author }} | {{ post.created_on }}</p>
     <p class="post">
-      {{ post.content|slice:":200" }}
+      {{ post.content|slice:":200" }}...
     </p>
     <a href="{% url 'post_detail' post.slug %}" class="button">Read More &rarr;</a>
   </article>
