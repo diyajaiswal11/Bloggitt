@@ -66,6 +66,11 @@
     {% endif %} | {% if post.read_time <= 1 %} 1 {% else %}{{ post.read_time }}
     {% endif %} min read
   </p>
+
+  {% if post.image %}
+        <img src="{{ post.image.url }}" style="height: 7cm; width: 15cm;" />
+  {% endif %}
+  
   <p class="post">{{ post.content | safe }}</p>
   {% if not post_in_favorites %}
   <a class="button button-green" onclick="toggle()" data-slug="{{ post.slug }}"
