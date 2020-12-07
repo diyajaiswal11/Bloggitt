@@ -156,3 +156,52 @@ div.cred .formfooter p a {
   background-color: #525158;
   color: #ffffff;
 }
+
+/* header */
+
+header {
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  padding: 0 3rem;
+  justify-content: space-between;
+}
+
+header a {
+  text-decoration: none;
+}
+
+header h1 a {
+  font-size: 2.5rem;
+  color: #2d6187;
+}
+
+nav ul {
+  display: flex;
+  width: 30rem;
+  justify-content: space-between;
+  list-style: none;
+}
+
+nav ul li a {
+  font-size: 1.7rem;
+  color: #28abb9;
+}
+
+.description {
+  padding: 4rem 0;
+  background-color: #28abb9;
+  color: #ffffff;
+  text-align: center;
+}
+
+.description h2 {
+  font-weight: 400;
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+}
+
+.description p {
+  font-size: 1.6rem;
+  font-weight: 200;
+}
