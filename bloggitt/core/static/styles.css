@@ -77,7 +77,8 @@ div.input.focusing::before {
   width: 100%;
 }
 
-div.cred button {
+div.cred button,
+a.button {
   padding: 1.5rem 4rem;
   border-radius: 0.8rem;
   border: none;
@@ -89,7 +90,8 @@ div.cred button {
   outline: 0;
 }
 
-div.cred button:focus {
+div.cred button:focus,
+a.button:focus {
   outline: 0;
   box-shadow: 0 0 0 0.3rem rgba(84, 164, 173, 0.726);
 }
@@ -176,17 +178,19 @@ header h1 a {
   color: #2d6187;
 }
 
-nav ul {
+header nav ul {
   display: flex;
   width: 30rem;
   justify-content: space-between;
   list-style: none;
 }
 
-nav ul li a {
+header nav ul li a {
   font-size: 1.7rem;
   color: #28abb9;
 }
+
+/* description - hero section */
 
 .description {
   padding: 4rem 0;
@@ -204,4 +208,40 @@ nav ul li a {
 .description p {
   font-size: 1.6rem;
   font-weight: 200;
+}
+
+/* Blogs */
+
+.blogs .blog {
+  border: 0.01rem solid #4cf14c;
+  width: calc(100% - 6rem);
+  margin: 3rem auto;
+  padding: 2rem;
+  border-radius: 0.8rem;
+}
+
+.blogs .blog .title {
+  color: #2d6187;
+  font-weight: 600;
+  font-size: 2.4rem;
+}
+
+.blogs .blog .author {
+  margin: 1.5rem 0;
+  font-size: 1.3rem;
+  color: #686666;
+  font-size: 400;
+}
+
+.blogs .blog .post {
+  font-size: 1.5rem;
+  line-height: 1.8;
+  color: #333333;
+  font-size: 400;
+  margin-bottom: 1.8rem;
+}
+
+a.button {
+  display: inline-block;
+  text-decoration: none;
 }

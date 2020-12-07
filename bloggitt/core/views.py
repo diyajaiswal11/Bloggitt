@@ -65,8 +65,8 @@ def postlist(request):
     # except EmptyPage:
     #     posts = post_list.page(post_list.num_pages)
 
-    return render(request,'index2.html')
-
+    # return render(request,'index.html', {"post_list": posts})
+    return render(request, "index2.html")
 
 def postdetail(request, slug):
     if not request.user.is_authenticated:
