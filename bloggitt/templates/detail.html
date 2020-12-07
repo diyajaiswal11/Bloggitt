@@ -32,6 +32,16 @@
             <path fill-rule="evenodd"
               d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
           </svg>
+          &nbsp 
+           {% if user.is_authenticated %}
+                        {% if user in post.likes.all %}
+                        <a class='like-btn' style="color: red" data-href="{{ post.get_api_like_url }}" data-likes="{{ post.likes.count }}" href=""><i class="fa fa-heart fa-lg" style="color: red" aria-hidden="true" id="hid" ></i> <span id="pTest">{{ post.likes.count }}</span></a>
+                        {% else %}
+                        <a class='like-btn' style="color: red" data-href="{{ post.get_api_like_url }}" data-likes="{{ post.likes.count }}" href=""><i class="fa fa-heart-o fa-lg" style="color: red" aria-hidden="true" id="hid"></i> <span id="pTest">{{ post.likes.count }}</span></a>
+                        {% endif %}
+            {% else %}
+                        <i class="fa fa-heart-o fa-lg" style="color: red" aria-hidden="true" id="hid"></i><a class='ml-2 h6' style="color: red" href="{% url 'login' %}"> {{ post.likes.count }}</a>
+            {% endif %}
         </p>
         <p class=" text-muted">{{ post.author }} | {{ post.created_on }}
         <br>
