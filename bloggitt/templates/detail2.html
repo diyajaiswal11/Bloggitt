@@ -1,7 +1,7 @@
 {% extends "base2.html" %} {% load static %} {% block title %} {{ post.title }} {% endblock title %}
 {% block content %} {% include "header.html" %} {% include "description.html" %}
 <article class="blog">
-  <h3 class="title">Lorem ipsum</h3>
+  <h3 class="title">{{ post.title }}</h3>
   <p class="author">{{ post.author }} | {{ post.created_on }}</p>
   <p class="author detail">
     {{ post.read_count }}

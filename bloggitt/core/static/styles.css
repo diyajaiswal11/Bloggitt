@@ -222,7 +222,6 @@ header nav ul li a {
   width: calc(100% - 6rem);
   margin: 3rem auto;
   padding: 2rem 0;
-  border-radius: 0.8rem;
 }
 
 .blog .title {
@@ -234,8 +233,8 @@ header nav ul li a {
 .blog .author {
   margin: 1.5rem 0;
   font-size: 1.3rem;
-  color: #686666;
-  font-size: 400;
+  color: #b144cc;
+  font-weight: 500;
 }
 
 .blog .post {
@@ -281,10 +280,6 @@ a.button {
 
 .pagination ul li:first-child {
   border-radius: 0.6rem 0 0 0.6rem;
-}
-
-.pagination ul li:nth-last-child(2) {
-  padding: 0.5rem 1.8rem;
 }
 
 .pagination ul li a {
