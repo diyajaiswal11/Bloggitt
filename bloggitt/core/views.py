@@ -4,16 +4,24 @@ from .models import Post, FavouritePost
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.generic import RedirectView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.shortcuts import render,get_object_or_404
+import json
+from django.forms import model_to_dict
 
 from django.contrib import messages
 
 from django.db import IntegrityError
+
+import datetime
+def default(o):
+    if isinstance(o, (datetime.date, datetime.datetime)):
+        return o.isoformat()
+    return str(o)
 
 def loginUser(request):
     if not request.user.is_authenticated:
@@ -61,8 +69,22 @@ def postlist(request):
     if not request.user.is_authenticated:
         return redirect('login')
     
+    # post_list= Paginator(Post.objects.all().order_by('-created_on'),2)
+    # page= request.GET.get('page')
+
+    # try:
+    #     posts = post_list.page(page)
+    # except PageNotAnInteger:
+    #     posts = post_list.page(1)
+    # except EmptyPage:
+    #     posts = post_list.page(post_list.num_pages)
+
+    # return render(request,'index.html', {"post_list": posts})
+    return render(request, "index.html")
+
+def fetch(request):
     post_list= Paginator(Post.objects.all().order_by('-created_on'),2)
-    page= request.GET.get('page')
+    page=request.POST.get("page")
 
     try:
         posts = post_list.page(page)
@@ -71,7 +93,23 @@ def postlist(request):
     except EmptyPage:
         posts = post_list.page(post_list.num_pages)
 
-    return render(request,'index.html', {"post_list": posts})
+    post_dic = {
+        "number": posts.number,
+        "has_next": posts.has_next(),
+        "has_previous": posts.has_previous(),
+        "posts": []
+    }
+
+    for i in post_list.page(page):
+        post_dic["posts"].append(i.__dict__)
+    
+    for i in post_dic["posts"]:
+        i["author"]=User.objects.get(id = i.get("author_id")).username
+
+    # for i in post_dic["posts"]:
+    #     i["image"]=str(i["image"])
+    
+    return JsonResponse({"post_list": json.dumps(post_dic, default = default)})
 
 def postdetail(request, slug):
     if not request.user.is_authenticated:
@@ -115,7 +153,7 @@ def favorites(request):
     user = request.user
     FavPosts,_ = FavouritePost.objects.get_or_create(user=user)
 
-    return render(request, 'index.html', { 'post_list': FavPosts.posts.all(), 'favorites': True})
+    return render(request, 'favourites.html', { 'post_list': FavPosts.posts.all(), "favorites": True})
 
     
 def about(request):
