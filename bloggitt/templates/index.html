@@ -15,14 +15,22 @@
 {% if post_list.has_previous or post_list.has_next %}
 <nav class="pagination">
   <ul>
-    {% if post_list.has_previous %}
+    {% comment %} {% if post_list.has_previous %}
     <li><a href="?page={{ post_list.previous_page_number }}">&laquo;</a></li>
     {% endif %}
     <li>{{ post_list.number }}</li>
     {% if post_list.has_next %}
     <li><a href="?page={{ post_list.next_page_number }}">&raquo;</a></li>
+    {% endif %} {% endcomment %}
+    {% if post_list.has_previous %}
+    <li><button id="prev-btn">&laquo;</button></li>
+    {% endif %}
+    <li class="text">{{ post_list.number }}</li>
+    {% if post_list.has_next %}
+    <li><button id="nex-btn">&raquo;</button></li>
     {% endif %}
   </ul>
 </nav>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 {% endif %}
 {% endblock content %}

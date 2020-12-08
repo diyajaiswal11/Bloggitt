@@ -270,11 +270,28 @@ a.button {
 }
 
 .pagination ul li {
-  font-size: 2rem;
-  padding: 0.5rem 1.5rem;
+  font-size: 1.7rem;
   border: 0.01rem solid #4cf14c;
   border-right: 0;
   background-color: #ffffff;
+  font-family: sans-serif;
+  color: #333333;
+}
+
+.pagination ul li.text {
+  padding: 0.8rem 1.6rem;
+}
+
+.pagination ul li button {
+  width: 100%;
+  display: block;
+  height: 100%;
+  padding: 0.8rem 1.6rem;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+  color: #28abb9;
 }
 
 .pagination ul li:last-child {
@@ -286,11 +303,11 @@ a.button {
   border-radius: 0.6rem 0 0 0.6rem;
 }
 
-.pagination ul li a {
+/* .pagination ul li a {
   color: #28abb9;
   font-family: sans-serif;
   text-decoration: none;
-}
+} */
 
 p.author.detail {
   position: absolute;
