@@ -5,6 +5,7 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
+from django.db.models import Q
 
 from .forms import SignupForm
 
@@ -104,3 +105,9 @@ def favourites(request):
 def aboutdetail(request):
     context={}
     return render(request,'about.html',context=context)
+
+def search(request):
+    query = request.GET.get('query', None)
+    allposts=Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
+    params={'post_list':allposts,}
+    return render(request,'search.html',params)

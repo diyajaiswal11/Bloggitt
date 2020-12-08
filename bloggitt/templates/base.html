@@ -40,9 +40,14 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button>         
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
+                        <div class="search-bar">
+                            <form action="/search" method="get">
+                              <input type="text" name="query" class="form-control" id="query" placeholder="Search">
+                            </form>
+                          </div>   
                         <li class="nav-item text-black">
                             <a class="nav-link text-black font-weight-bold" href="{% url 'about' %}">About</a>
                         </li>

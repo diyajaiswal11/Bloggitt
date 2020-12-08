@@ -1,0 +1,75 @@
+{% extends "base.html" %} 
+
+{% block logout %}
+<li class="nav-item text-black">
+    <a class="nav-link text-black font-weight-bold" href="{% url 'favourites' %}">Favourites</a>
+</li>
+
+<li class="nav-item text-black">
+    <a class="nav-link text-black font-weight-bold" href="{% url 'logout' %}">Logout</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+    
+    .head_text {
+        color: white;
+    }
+    
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+</style>
+
+<header>
+    <div class="text-center m-3">
+        <h1 >Search results : </h1>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+        <div class="col-md-8 mt-3 left">
+            {% for post in post_list %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                    <p class="card-text">{{post.content|slice:":200" }}</p>
+                    <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+            </div>
+            {% endfor %}
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  {% if post_list.has_previous %}
+                   <li class="page-item">
+                     <a class="page-link" href="?page={{post_list.previous_page_number}}" aria-label="Previous">
+                       <span aria-hidden="true">&laquo;</span>
+                     </a>
+                   </li>
+                  {% endif %}
+                  <li class="page-item"><a class="page-link" href="#">{{post_list.number}}</a></li>
+                  {% if post_list.has_next %}
+                   <li class="page-item">
+                     <a class="page-link" href="?page={{post_list.next_page_number}}" aria-label="Next">
+                       <span aria-hidden="true">&raquo;</span>
+                     </a>
+                   </li>
+                  {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+        
+       
+    </div>
+</div>
+{%endblock%}
