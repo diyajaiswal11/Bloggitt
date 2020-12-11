@@ -1,9 +1,16 @@
 {% extends "base.html" %} {% load static %} {% block title %} {{ post.title }}
 {% endblock title %} {% block content %} {% include "header.html" %} 
 {% include "description.html" %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 <article class="blog">
   <h3 class="title">{{ post.title }}</h3>
   <p class="author">{{ post.author }} | {{ post.created_on }}</p>
+    {% for tag in post.tags.all %}
+     <h3 style="display: inline;"><span class="badge badge-primary">#{{ tag.name }}</span></h3>
+    {% endfor %}
+    <br><br>
   <p class="author detail">
     {{ post.read_count }}
     <svg
@@ -65,9 +72,6 @@
     >
     {% endif %} | {% if post.read_time <= 1 %} 1 {% else %}{{ post.read_time }}
     {% endif %} min read <br>
-    
-    Tags: <br>
-    {{post.tags.all|join:", "}}
   </p>
 
   {% if post.image %}
