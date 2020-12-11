@@ -1,10 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save,post_save
 from .utils import get_read_time
 from django.urls import reverse
 from taggit.managers import TaggableManager
+from PIL import Image
+from django.dispatch import receiver
+
 
 # Create your models here.
 CATEGORY_CHOICES = ( 
@@ -70,6 +73,26 @@ class FavouritePost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     posts = models.ManyToManyField(Post)
 
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+    profile_image = models.ImageField(default='default.jpg', upload_to ='profile_pics', null=True, blank=True)
+
+    def __str__(self):
+        return '%s %s' % (self.user.first_name, self.user.last_name)
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
 class Comment(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=80)
@@ -81,3 +104,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
