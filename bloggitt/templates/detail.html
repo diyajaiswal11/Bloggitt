@@ -64,7 +64,10 @@
       {{ post.likes.count }}</a
     >
     {% endif %} | {% if post.read_time <= 1 %} 1 {% else %}{{ post.read_time }}
-    {% endif %} min read
+    {% endif %} min read <br>
+    
+    Tags: <br>
+    {{post.tags.all|join:", "}}
   </p>
 
   {% if post.image %}
