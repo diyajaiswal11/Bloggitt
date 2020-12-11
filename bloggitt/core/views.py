@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import generic
-from .models import Post, FavouritePost,Profile
+from .models import Post, FavouritePost,Profile, Comment
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -10,10 +10,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.shortcuts import render,get_object_or_404
-from .forms import SignupForm, UserForm,ProfileForm
+from .forms import SignupForm, UserForm,ProfileForm, CommentForm
 
 from django.contrib import messages
-
+from django.http import HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError
 
 def loginUser(request):
@@ -79,7 +79,8 @@ def postdetail(request, slug):
         return redirect('login')
         
     post = Post.objects.get(slug=slug)
-
+    comments=Comment.objects.filter(post=post).order_by('-id')
+   
     post.read_count += 1
     post.save()
 
@@ -90,7 +91,19 @@ def postdetail(request, slug):
     else:
         post_in_favorites = False
 
-    return render(request, 'detail.html', {'post': post, 'post_in_favorites': post_in_favorites})
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST or None)
+        if comment_form.is_valid():
+            body = request.POST.get('body')
+            name = request.POST.get('name')
+            comment = Comment.objects.create(post=post, name=name, body=body)
+            comment.save()
+            return HttpResponseRedirect(post.get_absolute_url())
+    else:
+        comment_form = CommentForm()
+
+    return render(request, 'detail.html', {'post': post, 'post_in_favorites': post_in_favorites,
+                                   'comments' : comments, 'comment_form' : comment_form})
 
 
 def Favorites(request, slug):
