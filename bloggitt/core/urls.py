@@ -1,6 +1,6 @@
 from . import views
 from django.urls import path
-from .views import PostLikeToggle , PostLikeAPIToggle
+from .views import PostLikeToggle , PostLikeAPIToggle,ProfileUpdateView,ProfileView
 
 urlpatterns = [
     path('login/', views.loginUser, name='login'),
@@ -15,8 +15,11 @@ urlpatterns = [
     path('api/like/<slug:slug>/', PostLikeAPIToggle.as_view(), name='like-api-toggle'),
     path('detail/<slug:slug>/', views.postdetail, name='post_detail'),
     path('detail/<slug:slug>/Favourites', views.Favorites, name='Favorites'),
-    path('about/',views.about,name='about'),
     path('fetch', views.fetch, name="fetch")
+    path('profile-update/', ProfileUpdateView.as_view(), name='profile-update'),
+    path('profile/', ProfileView.as_view(), name='profile'),
+    path('about/',views.about,name='about'),
+    path('search/',views.search,name='search'),
 ]
 
 from django.conf import settings
