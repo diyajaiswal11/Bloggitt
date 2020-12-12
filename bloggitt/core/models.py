@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from django.db.models.signals import pre_save,post_save
 from .utils import get_read_time
 from django.urls import reverse
+from taggit.managers import TaggableManager
 from PIL import Image
 from django.dispatch import receiver
 
@@ -38,7 +39,7 @@ class Post(models.Model):
     read_time = models.IntegerField(default=0, editable=False)
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
     image = models.ImageField(null=True, blank=True, upload_to='images/')
-
+    tags = TaggableManager()
 
     class Meta:
         ordering = ['-created_on']
