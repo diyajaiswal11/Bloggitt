@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.shortcuts import render,get_object_or_404
 from .forms import SignupForm, UserForm,ProfileForm, CommentForm
+from django.db.models import Q
 
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
@@ -135,6 +136,13 @@ def favorites(request):
 def about(request):
     context={}
     return render(request,'about.html',context=context)
+
+def search(request):
+    query = request.GET.get('query', None)
+    allposts=Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
+    params={'post_list':allposts,}
+    return render(request,'search.html',params)
+
 
 class PostLikeToggle(RedirectView):
     def get_redirect_url(self,*args, **kwargs):

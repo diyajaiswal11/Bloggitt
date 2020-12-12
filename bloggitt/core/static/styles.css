@@ -195,6 +195,18 @@ header nav ul li a {
   color: #28abb9;
 }
 
+/* Search */
+
+.form-control {
+  border-radius: 8px;
+  border-color: #28abb9;
+  border-style: hidden;
+  height: 3.8rem;
+  width: 25rem;
+  padding-left: 2rem;
+  background-color: rgba(40, 170, 185, 0.247);
+}
+
 /* description - hero section */
 
 .description {

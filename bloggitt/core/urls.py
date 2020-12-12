@@ -17,7 +17,8 @@ urlpatterns = [
     path('detail/<slug:slug>/Favourites', views.Favorites, name='Favorites'),
     path('profile-update/', ProfileUpdateView.as_view(), name='profile-update'),
     path('profile/', ProfileView.as_view(), name='profile'),
-    path('about/',views.about,name='about')
+    path('about/',views.about,name='about'),
+    path('search/',views.search,name='search'),
 ]
 
 from django.conf import settings
