@@ -19,6 +19,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError
+from taggit.models import Tag
 
 import datetime
 def default(o):
@@ -268,3 +269,10 @@ class ProfileUpdateView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
+
+
+def posts_by_tag(request, slug):
+    tags = Tag.objects.filter(slug=slug).values_list('name', flat=True)
+    posts = Post.objects.filter(tags__name__in=tags)
+
+    return render(request, 'postsbytag.html', { 'posts': posts })
