@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title %} Bloggit {% endblock title %} 
+{% block content %} {% include "header.html" %} {% include "description.html" %}
+
+<div class="blogs">
+    <h1>Posts for clicked tag</h1>
+    {% for post in posts %}
+        <article class="blog">
+            <h3 class="title">{{ post.title }}</h3>
+            <a href="{% url 'post_detail' post.slug %}" class="button">"Read More  →"</a>
+        </article>
+    {% endfor %}
+</div>
+
+{% endblock content %}

@@ -8,7 +8,9 @@
   <h3 class="title">{{ post.title }}</h3>
   <p class="author">{{ post.author }} | {{ post.created_on }}</p>
     {% for tag in post.tags.all %}
-     <h3 style="display: inline;"><span class="badge badge-primary">#{{ tag.name }}</span></h3>
+    <a href="{% url 'posts_by_tag' tag.slug %}">
+      <h3 style="display: inline;"><span class="badge badge-primary">#{{ tag.name }}</span></h3>
+    </a>
     {% endfor %}
     <br><br>
   <p class="author detail">
