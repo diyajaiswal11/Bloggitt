@@ -97,16 +97,18 @@
 
   <br/><br/>
   <hr>
-  
+  <h1>Comments..</h1>
+  <br/><br/>
   <form method="post">
     {% csrf_token %}
     {{ comment_form.as_p }}
-    <input type="submit" value="Submit" class="btn btn-outline-success">
+    <input type="submit" value="Submit" class="btn btn-outline-success" >
   </form>
 
-  
+  <br/><br/>
   <div class='main-comment-section'>
-    {{ comments.count }} Comment{{comments|pluralize }}
+    <h2>{{ comments.count }} Comment{{comments|pluralize }}</h2>
+    <br/>
     {% for comment in comments %}
     <blockquote class="blockquote">
       <p class="mb-0">{{comment.body}}</p>
