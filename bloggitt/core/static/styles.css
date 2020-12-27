@@ -333,3 +333,43 @@ a.button-red {
 a.button-green {
   background-color: #28a745;
 }
+
+.about {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+}
+.about h3{
+  font-size: 30px;
+  width: 95%;
+  color: #28abb9;
+}
+
+.about p{
+  font-size: 28px;
+  width: 95%;
+  color:  #324898;
+  font-weight: bold;
+}
+
+.imageCollage {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width:1500px;
+}
+.imageCollage_text{
+  padding:20px;
+  background:#e6e6e6;
+  border-radius:3px;
+  font-size:1.5rem;
+  width:300px;
+  margin:2px;
+}
+.imageCollage img{
+  height: 300px;
+  flex-grow: 1;
+  object-fit: cover;
+  margin: 2px;
+}

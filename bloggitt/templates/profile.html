@@ -4,12 +4,24 @@
 {% load crispy_forms_tags %} 
 
 {% block content %}
+    <!-- Add header -->
+    <header>
+      <h1><a href="/">Bloggit</a></h1>
+      <nav>
+        <ul>
+          <li><a href="{% url "about" %}">About</a></li>
+          <li><a href="{% url "favorites" %}" id="fav">Favorites</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- end header -->
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
-        <h1 class="h3 mb-0 text-gray-800">Profile</h1>
+        <h1 class="h3 mb-0 text-gray-800">Your Profile</h1>
         </div>          
 
         <!-- Main Content Here -->
