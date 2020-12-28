@@ -110,10 +110,26 @@
     <h2>{{ comments.count }} Comment{{comments|pluralize }}</h2>
     <br/>
     {% for comment in comments %}
-    <blockquote class="blockquote">
-      <p class="mb-0">{{comment.body}}</p>
-      <footer class="blockquote-footer">by <cite title="Source Title">{{comment.name|capfirst}}</cite></footer>
-    </blockquote>
+        <blockquote class="blockquote">
+          <p class="mb-0">{{comment.body}}</p>
+          <footer class="blockquote-footer">by <cite title="Source Title">{{comment.name|capfirst}}</cite></footer>
+        </blockquote>
+        <h3>Reply</h3>
+        {% for reply in comment.replies.all %}
+            <blockquote class="blockquote">
+            <p class="mb-0">{{reply.body}}</p>
+            <footer class="blockquote-footer">by <cite title="Source Title">{{reply.name|capfirst}}</cite></footer>
+            </blockquote>
+        {% endfor %}
+
+        <h4>Add a Reply</h4>
+        <form action="." method="post">
+          {{ comment_form.as_p }}
+          {% csrf_token %}
+                <!-- Hidden input for parent comment.id -->
+          <input type="hidden" name="parent_id" value="{{ comment.id }}">
+          <input class="btn btn-primary" type="submit" value="Reply">
+        </form>
     {% endfor %}
   </div>
 </article>
