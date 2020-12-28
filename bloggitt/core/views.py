@@ -120,7 +120,7 @@ def postdetail(request, slug):
         return redirect('login')
         
     post = Post.objects.get(slug=slug)
-    comments=Comment.objects.filter(post=post).order_by('-id')
+    comments=Comment.objects.filter(post=post, parent__isnull=True).order_by('-id')
    
     post.read_count += 1
     post.save()
@@ -133,12 +133,31 @@ def postdetail(request, slug):
         post_in_favorites = False
 
     if request.method == 'POST':
-        comment_form = CommentForm(request.POST or None)
+        comment_form = CommentForm(data=request.POST or None)
         if comment_form.is_valid():
+            #comment = Comment.objects.create(post=post, name=name, body=body)
+            #comment.save()
+            parent_obj = None
             body = request.POST.get('body')
             name = request.POST.get('name')
-            comment = Comment.objects.create(post=post, name=name, body=body)
-            comment.save()
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+            except:
+                parent_id = None
+            # if parent_id has been submitted get parent_obj id
+            if parent_id:
+                parent_obj = Comment.objects.get(id=parent_id)
+                # if parent object exist
+                if parent_obj:
+                    # create replay comment object
+                    replay_comment = comment_form.save(commit=False)
+                    # assign parent_obj to replay comment
+                    replay_comment.parent = parent_obj
+            new_comment = comment_form.save(commit=False)
+            #comment = Comment.objects.create(post=post, name=name, body=body)
+            new_comment.post = post
+            new_comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
     else:
         comment_form = CommentForm()
