@@ -1,6 +1,5 @@
 
 # Bloggitt 📝
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/1zSKmYy/6.jpg" alt="2" border="0" width="600px"></a>
 
 Bloggitt is a blogging website that allows users to post their thoughts and knowledge with others.
 
@@ -59,6 +58,11 @@ env\Scripts\activate
 ```
 pip install -r requirements.txt
 ```
+*If you have python2 and python3 installed you need to specify python3 by using command:*
+```
+python3 -m pip install -r requirements.txt
+```
+
 - Headover to Project Directory- 
 ```
 cd bloggitt
@@ -67,6 +71,11 @@ cd bloggitt
 ```
 python manage.py makemigrations
 ```
+*If you have python2 and python3 installed you need to specify python3 by using command:*
+```
+python3 manage.py makemigrations
+```
+
 - Migrate Database-
 ```
 python manage.py migrate
