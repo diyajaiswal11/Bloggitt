@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Comment, Profile
+from .models import Comment, Profile, Post
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=100)
@@ -30,4 +30,17 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('name', 'body')
+        
+        widgets={
 
+            'name':forms.TextInput(attrs={'class' : 'form-control'}),
+            'body':forms.Textarea(attrs={'class' : 'form-control'})
+
+        }
+
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = (
+            'category', 'title', 'content', 'image', 'tags'
+        )

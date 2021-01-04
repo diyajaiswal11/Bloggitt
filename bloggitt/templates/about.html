@@ -1,2 +1,40 @@
-
-<h1>About</h1>
+{% extends "base.html" %} 
+	{% block title %} 
+		About Bloggit 
+	{% endblock title %} 
+{% block content %}
+	<!-- Add header -->
+    <header>
+      <h1><a href="/">About Bloggit</a></h1>
+      <nav>
+        <ul>
+          <li><a href="{% url "about" %}">About</a></li>
+          <li><a href="{% url "favorites" %}" id="fav">Favorites</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- end header -->
+    <!-- Adding blogs content -->
+	<section>
+	  <div class="about">
+	    <h3>Bloggit is a blogging website that allows users to post their thoughts and share their knowledge with the world.We provide a platform to writers of all domain to freely express their views and content publicly without the fear of being judged.
+	    </h3>
+	    <h3>Blogs of all fields including technical, health & fitness, recipes, sports, travelling, corporate sector are welcome to become a part of our website.
+	    </h3>
+	    <p>Hurry up and seek the opportunity to get featured on our page !!
+	    </p>
+	  </div>
+	</section>
+	<section class="imageCollage">
+		<img src="https://placeimg.com/200/300/nature" alt="nature blogs">
+		<img src="https://placeimg.com/200/100/tech" alt="technical blogs">
+		<img src="https://placeimg.com/200/340/people" alt="health blogs">
+		<img src="https://placeimg.com/200/300/arch" alt="fashion blogs">
+		<img src="https://placeimg.com/200/340/nature" alt="nature blogs">
+		<img src="https://placeimg.com/200/100/tech" alt="technical blogs">
+	</section>
+	<!-- Ending blogs content -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+	</script>
+{% endblock content %}

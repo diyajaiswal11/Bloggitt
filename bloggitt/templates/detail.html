@@ -8,7 +8,9 @@
   <h3 class="title">{{ post.title }}</h3>
   <p class="author">{{ post.author }} | {{ post.created_on }}</p>
     {% for tag in post.tags.all %}
-     <h3 style="display: inline;"><span class="badge badge-primary">#{{ tag.name }}</span></h3>
+    <a href="{% url 'posts_by_tag' tag.slug %}">
+      <h3 style="display: inline;"><span class="badge badge-primary">#{{ tag.name }}</span></h3>
+    </a>
     {% endfor %}
     <br><br>
   <p class="author detail">
@@ -101,21 +103,39 @@
 
   <br/><br/>
   <hr>
-  
+  <h1>Comments..</h1>
+  <br/><br/>
   <form method="post">
     {% csrf_token %}
     {{ comment_form.as_p }}
-    <input type="submit" value="Submit" class="btn btn-outline-success">
+    <input type="submit" value="Submit" class="btn btn-outline-success" >
   </form>
 
-  
+  <br/><br/>
   <div class='main-comment-section'>
-    {{ comments.count }} Comment{{comments|pluralize }}
+    <h2>{{ comments.count }} Comment{{comments|pluralize }}</h2>
+    <br/>
     {% for comment in comments %}
-    <blockquote class="blockquote">
-      <p class="mb-0">{{comment.body}}</p>
-      <footer class="blockquote-footer">by <cite title="Source Title">{{comment.name|capfirst}}</cite></footer>
-    </blockquote>
+        <blockquote class="blockquote">
+          <p class="mb-0">{{comment.body}}</p>
+          <footer class="blockquote-footer">by <cite title="Source Title">{{comment.name|capfirst}}</cite></footer>
+        </blockquote>
+        <h3>Reply</h3>
+        {% for reply in comment.replies.all %}
+            <blockquote class="blockquote">
+            <p class="mb-0">{{reply.body}}</p>
+            <footer class="blockquote-footer">by <cite title="Source Title">{{reply.name|capfirst}}</cite></footer>
+            </blockquote>
+        {% endfor %}
+
+        <h4>Add a Reply</h4>
+        <form action="." method="post">
+          {{ comment_form.as_p }}
+          {% csrf_token %}
+                <!-- Hidden input for parent comment.id -->
+          <input type="hidden" name="parent_id" value="{{ comment.id }}">
+          <input class="btn btn-primary" type="submit" value="Reply">
+        </form>
     {% endfor %}
   </div>
 </article>

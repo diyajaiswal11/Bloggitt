@@ -10,19 +10,26 @@ from django.dispatch import receiver
 
 
 # Create your models here.
-CATEGORY_CHOICES = ( 
-    ("1", "Programming/Technology"), 
-    ("2", "Health/Fitness"), 
-    ("3", "Personal"), 
-    ("4", "Fashion"), 
-    ("5", "Food"), 
-    ("6", "Travel"), 
-    ("7", "Business"), 
-    ("8", "Art"),
-    ("9", "Other"), 
-)  
+class TagDict(models.Model):
+    tag = models.CharField(max_length=100)
+    count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.tag
+ 
 
 class Post(models.Model):
+    CATEGORY_CHOICES = ( 
+        ("1", "Programming/Technology"), 
+        ("2", "Health/Fitness"), 
+        ("3", "Personal"), 
+        ("4", "Fashion"), 
+        ("5", "Food"), 
+        ("6", "Travel"), 
+        ("7", "Business"), 
+        ("8", "Art"),
+        ("9", "Other"), 
+    ) 
     
     category = models.CharField( 
         max_length = 20, 
@@ -39,7 +46,7 @@ class Post(models.Model):
     read_time = models.IntegerField(default=0, editable=False)
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
     image = models.ImageField(null=True, blank=True, upload_to='images/')
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta:
         ordering = ['-created_on']
@@ -50,6 +57,11 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title, allow_unicode=True)
         super().save(*args, **kwargs)
+
+        for tag in self.tags.all():
+            tag_dict,_ = TagDict.objects.get_or_create(tag=str(tag))
+            tag_dict.count += 1
+            tag_dict.save()
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={"slug":self.slug})
@@ -98,7 +110,8 @@ class Comment(models.Model):
     name = models.CharField(max_length=80)
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-
+    parent = models.ForeignKey('self', null=True, on_delete=models.CASCADE, blank=True, related_name='replies')
+    
     class Meta:
         ordering = ['created_on']
 

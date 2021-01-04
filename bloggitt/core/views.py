@@ -4,17 +4,30 @@ from .models import Post, FavouritePost,Profile, Comment
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse, JsonResponse
+from django.views.generic import RedirectView
 from django.http import HttpResponse
 from django.views.generic import RedirectView,TemplateView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.shortcuts import render,get_object_or_404
+import json
+from django.forms import model_to_dict
 from .forms import SignupForm, UserForm,ProfileForm, CommentForm
-
+from django.db.models import Q
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError
+from taggit.models import Tag
+from django.views.generic import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
+import datetime
+def default(o):
+    if isinstance(o, (datetime.date, datetime.datetime)):
+        return o.isoformat()
+    return str(o)
 
 def loginUser(request):
     if not request.user.is_authenticated:
@@ -62,8 +75,22 @@ def postlist(request):
     if not request.user.is_authenticated:
         return redirect('login')
     
+    # post_list= Paginator(Post.objects.all().order_by('-created_on'),2)
+    # page= request.GET.get('page')
+
+    # try:
+    #     posts = post_list.page(page)
+    # except PageNotAnInteger:
+    #     posts = post_list.page(1)
+    # except EmptyPage:
+    #     posts = post_list.page(post_list.num_pages)
+
+    # return render(request,'index.html', {"post_list": posts})
+    return render(request, "index.html")
+
+def fetch(request):
     post_list= Paginator(Post.objects.all().order_by('-created_on'),2)
-    page= request.GET.get('page')
+    page=request.POST.get("page")
 
     try:
         posts = post_list.page(page)
@@ -72,14 +99,30 @@ def postlist(request):
     except EmptyPage:
         posts = post_list.page(post_list.num_pages)
 
-    return render(request,'index.html', {"post_list": posts})
+    post_dic = {
+        "number": posts.number,
+        "has_next": posts.has_next(),
+        "has_previous": posts.has_previous(),
+        "posts": []
+    }
+
+    for i in post_list.page(page):
+        post_dic["posts"].append(i.__dict__)
+    
+    for i in post_dic["posts"]:
+        i["author"]=User.objects.get(id = i.get("author_id")).username
+
+    # for i in post_dic["posts"]:
+    #     i["image"]=str(i["image"])
+    
+    return JsonResponse({"post_list": json.dumps(post_dic, default = default)})
 
 def postdetail(request, slug):
     if not request.user.is_authenticated:
         return redirect('login')
         
     post = Post.objects.get(slug=slug)
-    comments=Comment.objects.filter(post=post).order_by('-id')
+    comments=Comment.objects.filter(post=post, parent__isnull=True).order_by('-id')
    
     post.read_count += 1
     post.save()
@@ -92,12 +135,31 @@ def postdetail(request, slug):
         post_in_favorites = False
 
     if request.method == 'POST':
-        comment_form = CommentForm(request.POST or None)
+        comment_form = CommentForm(data=request.POST or None)
         if comment_form.is_valid():
+            #comment = Comment.objects.create(post=post, name=name, body=body)
+            #comment.save()
+            parent_obj = None
             body = request.POST.get('body')
             name = request.POST.get('name')
-            comment = Comment.objects.create(post=post, name=name, body=body)
-            comment.save()
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+            except:
+                parent_id = None
+            # if parent_id has been submitted get parent_obj id
+            if parent_id:
+                parent_obj = Comment.objects.get(id=parent_id)
+                # if parent object exist
+                if parent_obj:
+                    # create replay comment object
+                    replay_comment = comment_form.save(commit=False)
+                    # assign parent_obj to replay comment
+                    replay_comment.parent = parent_obj
+            new_comment = comment_form.save(commit=False)
+            #comment = Comment.objects.create(post=post, name=name, body=body)
+            new_comment.post = post
+            new_comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
     else:
         comment_form = CommentForm()
@@ -129,12 +191,19 @@ def favorites(request):
     user = request.user
     FavPosts,_ = FavouritePost.objects.get_or_create(user=user)
 
-    return render(request, 'index.html', { 'post_list': FavPosts.posts.all(), 'favorites': True})
+    return render(request, 'favourites.html', { 'post_list': FavPosts.posts.all(), "favorites": True})
 
     
 def about(request):
     context={}
     return render(request,'about.html',context=context)
+
+def search(request):
+    query = request.GET.get('query', None)
+    allposts=Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
+    params={'post_list':allposts,}
+    return render(request,'search.html',params)
+
 
 class PostLikeToggle(RedirectView):
     def get_redirect_url(self,*args, **kwargs):
@@ -184,7 +253,7 @@ class PostLikeAPIToggle(APIView):
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .forms import UserForm, ProfileForm
+from .forms import UserForm, ProfileForm, BlogForm
 from django.contrib.auth.models import User
 from .models import Profile
 
@@ -223,8 +292,7 @@ class ProfileUpdateView(LoginRequiredMixin, TemplateView):
         return self.post(request, *args, **kwargs)
 
 
-from django.views.generic import UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
@@ -235,3 +303,21 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+def posts_by_tag(request, slug):
+    tags = Tag.objects.filter(slug=slug).values_list('name', flat=True)
+    posts = Post.objects.filter(tags__name__in=tags)
+
+    return render(request, 'postsbytag.html', { 'posts': posts })
+
+
+def upload_blog(request):
+    if request.method == 'POST':
+        blogForm = BlogForm(request.POST)
+        if blogForm.is_valid():
+            blog = blogForm.save(commit=False)
+            blog.author = request.user
+            blog.save()
+            blogForm.save_m2m()
+            return redirect('home')
+    # assuming `uploadblog.html` will be the page containing a form('blogForm') for uploading blog
+    return render(request, 'uploadblog.html', 'blogForm': BlogForm())

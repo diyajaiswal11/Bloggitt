@@ -195,6 +195,18 @@ header nav ul li a {
   color: #28abb9;
 }
 
+/* Search */
+
+.form-control {
+  border-radius: 8px;
+  border-color: #28abb9;
+  border-style: hidden;
+  height: 3.8rem;
+  width: 25rem;
+  padding-left: 2rem;
+  background-color: rgba(40, 170, 185, 0.247);
+}
+
 /* description - hero section */
 
 .description {
@@ -258,8 +270,7 @@ a.button {
 
 .pagination {
   width: calc(100% - 6rem);
-  margin: auto;
-  margin-bottom: 3rem;
+  margin: 3rem auto;
 }
 
 .pagination ul {
@@ -270,11 +281,28 @@ a.button {
 }
 
 .pagination ul li {
-  font-size: 2rem;
-  padding: 0.5rem 1.5rem;
+  font-size: 1.7rem;
   border: 0.01rem solid #4cf14c;
   border-right: 0;
   background-color: #ffffff;
+  font-family: sans-serif;
+  color: #333333;
+}
+
+.pagination ul li.text {
+  padding: 0.8rem 1.6rem;
+}
+
+.pagination ul li button {
+  width: 100%;
+  display: block;
+  height: 100%;
+  padding: 0.8rem 1.6rem;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+  color: #28abb9;
 }
 
 .pagination ul li:last-child {
@@ -286,11 +314,11 @@ a.button {
   border-radius: 0.6rem 0 0 0.6rem;
 }
 
-.pagination ul li a {
+/* .pagination ul li a {
   color: #28abb9;
   font-family: sans-serif;
   text-decoration: none;
-}
+} */
 
 p.author.detail {
   position: absolute;
@@ -304,4 +332,44 @@ a.button-red {
 
 a.button-green {
   background-color: #28a745;
+}
+
+.about {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+}
+.about h3{
+  font-size: 30px;
+  width: 95%;
+  color: #28abb9;
+}
+
+.about p{
+  font-size: 28px;
+  width: 95%;
+  color:  #324898;
+  font-weight: bold;
+}
+
+.imageCollage {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width:1500px;
+}
+.imageCollage_text{
+  padding:20px;
+  background:#e6e6e6;
+  border-radius:3px;
+  font-size:1.5rem;
+  width:300px;
+  margin:2px;
+}
+.imageCollage img{
+  height: 300px;
+  flex-grow: 1;
+  object-fit: cover;
+  margin: 2px;
 }

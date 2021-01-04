@@ -1,11 +1,25 @@
 <header>
   <h1><a href="/">Bloggit</a></h1>
+  <!-- <div class="search-bar">
+    <form action="/search" method="get">
+      <input type="text" name="query" class="form-control" id="query" placeholder="Search">
+    </form>
+  </div>   -->
+
+ <div class="form-group has-search">
+  <form action="/search" method="get">
+  <div style="text-align: right;">
+  <input type="text" class="form-control" placeholder="Search" name="query" id="query">
+  </div>
+  </form>
+ </div>
+
   <nav>
     <ul>
         
       <li><a href="{% url "profile" %}">Profile</a></li>
       <li><a href="{% url "about" %}">About</a></li>
-      <li><a href="{% url "favorites" %}">Favorites</a></li>
+      <li><a href="{% url "favorites" %}" id="fav">Favorites</a></li>
       <li><a href="{% url 'logout' %}">Logout</a></li>
     </ul>
   </nav>
