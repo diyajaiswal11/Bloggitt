@@ -8,6 +8,7 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
     path('favorites/', views.favorites, name='favorites'),
     path('', views.postlist, name='home'),
+    path('blog/create', views.PostCreateView.as_view(), name='create_blog'),
     # path('post/detail/<slug:slug>/', views.postdetail, name='post_detail'),
     # path('post/detail/<slug:slug>/Favourites', views.Favorites, name='Favorites'),
     # path('about',views.aboutdetail,name='about'),

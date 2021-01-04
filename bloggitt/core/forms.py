@@ -37,10 +37,3 @@ class CommentForm(forms.ModelForm):
             'body':forms.Textarea(attrs={'class' : 'form-control'})
 
         }
-
-class BlogForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = (
-            'category', 'title', 'content', 'image', 'tags'
-        )

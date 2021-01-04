@@ -20,7 +20,7 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError
 from taggit.models import Tag
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 import datetime
@@ -253,7 +253,7 @@ class PostLikeAPIToggle(APIView):
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .forms import UserForm, ProfileForm, BlogForm
+from .forms import UserForm, ProfileForm
 from django.contrib.auth.models import User
 from .models import Profile
 
@@ -303,6 +303,8 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
 def posts_by_tag(request, slug):
     tags = Tag.objects.filter(slug=slug).values_list('name', flat=True)
     posts = Post.objects.filter(tags__name__in=tags)
@@ -310,14 +312,11 @@ def posts_by_tag(request, slug):
     return render(request, 'postsbytag.html', { 'posts': posts })
 
 
-def upload_blog(request):
-    if request.method == 'POST':
-        blogForm = BlogForm(request.POST)
-        if blogForm.is_valid():
-            blog = blogForm.save(commit=False)
-            blog.author = request.user
-            blog.save()
-            blogForm.save_m2m()
-            return redirect('home')
-    # assuming `uploadblog.html` will be the page containing a form('blogForm') for uploading blog
-    return render(request, 'uploadblog.html', 'blogForm': BlogForm())
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['category', 'title', 'content', 'image', 'tags']
+    template_name = 'post_form.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
