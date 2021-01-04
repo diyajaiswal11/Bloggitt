@@ -251,7 +251,7 @@ class PostLikeAPIToggle(APIView):
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .forms import UserForm, ProfileForm
+from .forms import UserForm, ProfileForm, BlogForm
 from django.contrib.auth.models import User
 from .models import Profile
 
@@ -295,3 +295,17 @@ def posts_by_tag(request, slug):
     posts = Post.objects.filter(tags__name__in=tags)
 
     return render(request, 'postsbytag.html', { 'posts': posts })
+
+
+def upload_blog(request):
+    if request.method == 'POST':
+        blogForm = BlogForm(request.POST)
+        if blogForm.is_valid():
+            blog = blogForm.save(commit=False)
+            blog.author = request.user
+            blog.save()
+            blogForm.save_m2m()
+            return redirect('home')
+    
+    # assuming `uploadblog.html` will be the page containing a form('blogForm') for uploading blog
+    return render(request, 'uploadblog.html', 'blogForm': BlogForm())
