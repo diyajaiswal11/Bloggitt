@@ -81,10 +81,10 @@
   {% endif %}
   
   <p class="post">{{ post.content | safe }}</p>
+  
   {% if not post_in_favorites %}
   <a class="button button-green" onclick="toggle()" data-slug="{{ post.slug }}"
-    >Add To Favourites</a
-  >
+    >Add To Favourites</a>
   {% else %}
   <a
     class="button button-red"
@@ -94,6 +94,12 @@
     >Delete from Favourites</a
   >
   {% endif %}
+  {% if post.author == user %}
+        <div>
+        <a class="button button-green" style="margin-top: 30px" href="{% url "post-update" post.slug %}">UPDATE</a>
+      </div>
+    {% endif %}
+
 
   <br/><br/>
   <hr>

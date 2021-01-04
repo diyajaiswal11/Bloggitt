@@ -1,6 +1,6 @@
 from . import views
 from django.urls import path
-from .views import PostLikeToggle , PostLikeAPIToggle,ProfileUpdateView,ProfileView
+from .views import PostLikeToggle , PostLikeAPIToggle,ProfileUpdateView,ProfileView,PostUpdateView
 
 urlpatterns = [
     path('login/', views.loginUser, name='login'),
@@ -15,12 +15,12 @@ urlpatterns = [
     path('api/like/<slug:slug>/', PostLikeAPIToggle.as_view(), name='like-api-toggle'),
     path('detail/<slug:slug>/', views.postdetail, name='post_detail'),
     path('detail/<slug:slug>/Favourites', views.Favorites, name='Favorites'),
+    path('detail/<slug:slug>/update/', PostUpdateView.as_view(), name='post-update'),
     path('fetch', views.fetch, name="fetch"),
     path('profile-update/', ProfileUpdateView.as_view(), name='profile-update'),
     path('profile/', ProfileView.as_view(), name='profile'),
     path('about/',views.about,name='about'),
     path('search/',views.search,name='search'),
-
     path('tags/<slug:slug>/', views.posts_by_tag, name='posts_by_tag'),
 ]
 

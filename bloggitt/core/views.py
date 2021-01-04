@@ -20,6 +20,8 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError
 from taggit.models import Tag
+from django.views.generic import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 import datetime
 def default(o):
@@ -290,6 +292,17 @@ class ProfileUpdateView(LoginRequiredMixin, TemplateView):
         return self.post(request, *args, **kwargs)
 
 
+
+
+class PostUpdateView(LoginRequiredMixin, UpdateView):
+    model = Post
+    fields = ['title', 'content','image','tags']
+
+    template_name ='post_form.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 def posts_by_tag(request, slug):
     tags = Tag.objects.filter(slug=slug).values_list('name', flat=True)
     posts = Post.objects.filter(tags__name__in=tags)
@@ -306,6 +319,5 @@ def upload_blog(request):
             blog.save()
             blogForm.save_m2m()
             return redirect('home')
-    
     # assuming `uploadblog.html` will be the page containing a form('blogForm') for uploading blog
     return render(request, 'uploadblog.html', 'blogForm': BlogForm())
