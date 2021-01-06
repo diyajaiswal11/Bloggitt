@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
-{% load crispy_forms_tags %} 
-
 {% block content %}
-    <!-- Add header -->
     <header>
       <h1><a href="/">Bloggit</a></h1>
       <nav>
@@ -15,34 +11,13 @@
         </ul>
       </nav>
     </header>
-    <!-- end header -->
-    <!-- Begin Page Content -->
-    <div class="container-fluid">
-
-        <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
-        <h1 class="h3 mb-0 text-gray-800">Your Profile</h1>
-        </div>          
-
-        <!-- Main Content Here -->
-        <div class="row">
-          <div class="col-lg-2"></div>
-          <div class="col-lg-3 my-5">
-            <img src="{{user.profile.profile_image.url}}" class="rounded float-right" height="200px" width="200px">
-          </div>
-          <div class="card o-hidden border-0 shadow-lg my-5 col-lg-5">
-            <div class="card-body">
-                
-                <p><strong>Name: </strong> {{user.username}} </p>
-                <p><strong>Email: </strong> {{user.email}} </p>
-               
-                <a href="{% url 'profile-update' %}" class="btn btn-sm btn-primary shadow-sm">Update Profile</a>
-            </div>
-          </div>
+    <div class="profile-container">
+        <div class="profile">
+          <img src="{{user.profile.profile_image.url}}" alt="">
+          <h2>{{user.username}}</h2>
+          <p>{{user.email}}</p>
         </div>
-        
-        
-        
+        <p class="title">I love reading blogs..</p>
+        <a href="{% url 'profile-update' %}" class="button">Update Profile</a>
     </div>
-    <!-- /.container-fluid -->
 {% endblock content %}
