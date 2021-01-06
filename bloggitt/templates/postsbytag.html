@@ -2,7 +2,7 @@
 {% block content %} {% include "header.html" %} {% include "description.html" %}
 
 <div class="blogs">
-    <h1>Posts for clicked tag</h1>
+    <h1 class="title" style="padding-left: 3rem;">Posts for clicked tag</h1>
     {% for post in posts %}
         <article class="blog">
             <h3 class="title">{{ post.title }}</h3>

@@ -229,6 +229,11 @@ header nav ul li a {
   background-color: rgba(40, 170, 185, 0.247);
 }
 
+.form-control:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.3rem rgba(84, 164, 173, 0.726);
+}
+
 /* description - hero section */
 
 .description {
@@ -501,6 +506,7 @@ a.button-green {
 
 .content-section div textarea {
   resize: vertical;
+  line-height: 1.2;
 }
 
 .content-section div select {
