@@ -57,7 +57,7 @@ div.input input {
   font-family: inherit;
 }
 
-div.input input::placeholder {
+input::placeholder {
   font-family: Poppins, sans-serif;
   font-size: 1.2rem;
 }
@@ -185,7 +185,7 @@ header h1 a {
 
 header nav ul {
   display: flex;
-  width: 30rem;
+  width: 50rem;
   justify-content: space-between;
   list-style: none;
 }
@@ -193,6 +193,22 @@ header nav ul {
 header nav ul li a {
   font-size: 1.7rem;
   color: #28abb9;
+}
+
+@media (max-width: 1025px) {
+  header {
+    flex-direction: column;
+    height: auto;
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+  header nav {
+    width: 100%;
+  }
+  header nav ul {
+    width: 100%;
+    justify-content: space-evenly;
+  }
 }
 
 /* Search */
@@ -335,39 +351,46 @@ a.button-green {
 }
 
 .about {
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-bottom: 30px;
-}
-.about h3{
-  font-size: 30px;
-  width: 95%;
-  color: #28abb9;
+  padding: 3rem;
+  background-color: #ffffff;
+  height: calc(100vh - 8rem);
+  display: flex;
+  align-items: center;
 }
 
-.about p{
-  font-size: 28px;
-  width: 95%;
-  color:  #324898;
-  font-weight: bold;
+.about ul {
+  list-style: none;
+}
+
+.about ul li:nth-child(2) {
+  margin: 4.5rem 0;
+}
+
+.about ul li {
+  font-weight: 400;
+  font-family: Poppins, sans-serif;
+  font-size: 1.8rem;
+  line-height: 1.7;
+}
+
+.about ul li:last-child {
+  font-weight: 200;
+  text-align: center;
 }
 
 .imageCollage {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  max-width:1500px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
 }
-.imageCollage_text{
-  padding:20px;
-  background:#e6e6e6;
-  border-radius:3px;
-  font-size:1.5rem;
-  width:300px;
-  margin:2px;
+.imageCollage_text {
+  padding: 20px;
+  background: #e6e6e6;
+  border-radius: 3px;
+  font-size: 1.5rem;
+  width: 300px;
+  margin: 2px;
 }
-.imageCollage img{
+.imageCollage img {
   height: 300px;
   flex-grow: 1;
   object-fit: cover;
