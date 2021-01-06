@@ -466,6 +466,59 @@ a.button-green {
   color: #2d6187;
 }
 
+.profile-update + div {
+  height: 2rem;
+}
+
 #profile_image-clear_id {
   width: auto;
+}
+
+.content-section {
+  width: 90%;
+  margin: auto;
+  font-size: 1.3rem;
+}
+
+.content-section div {
+  margin-bottom: 3rem;
+}
+
+.content-section div label {
+  font-weight: 500;
+}
+
+.content-section div input,
+.content-section div select,
+.content-section div textarea {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 1rem 2rem;
+  border-radius: 0.8rem;
+  border: 0.1rem solid #28abb9;
+  background: transparent;
+}
+
+.content-section div textarea {
+  resize: vertical;
+}
+
+.content-section div select {
+  padding: 1rem;
+}
+
+.content-section div input:focus,
+.content-section div select:focus,
+.content-section div textarea:focus {
+  box-shadow: 0 0 0 0.3rem rgba(84, 164, 173, 0.726);
+  outline: 0;
+}
+
+.content-section p#hint_id_tags {
+  color: rgba(84, 164, 173, 0.726);
+  margin-top: 0.2rem;
+}
+
+.content-section .button {
+  margin-bottom: 2rem;
 }
