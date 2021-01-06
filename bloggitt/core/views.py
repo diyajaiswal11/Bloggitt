@@ -112,9 +112,7 @@ def fetch(request):
     for i in post_dic["posts"]:
         i["author"]=User.objects.get(id = i.get("author_id")).username
 
-    # for i in post_dic["posts"]:
-    #     i["image"]=str(i["image"])
-    
+   
     return JsonResponse({"post_list": json.dumps(post_dic, default = default)})
 
 def postdetail(request, slug):
