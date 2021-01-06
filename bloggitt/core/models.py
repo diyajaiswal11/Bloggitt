@@ -89,7 +89,7 @@ class FavouritePost(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
-    profile_image = models.ImageField(default='default.jpg', upload_to ='profile_pics', null=True, blank=True)
+    profile_image = models.ImageField(default='default.jpeg', upload_to ='profile_pics', null=True, blank=True)
 
     def __str__(self):
         return '%s %s' % (self.user.first_name, self.user.last_name)
