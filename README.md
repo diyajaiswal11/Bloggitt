@@ -25,7 +25,7 @@ Bloggitt is a blogging website that allows users to post their thoughts and know
 Kharagpur Winter of Code is a 5-week long online program for students who are new to open source software development. The program not only helps students to get involved in open source, but also prepares them for many open source summer programs; Google Summer of Code being one of them.
 
 <div >
-<img src="https://kwoc.kossiitkgp.org/static/media/circle.33e6ce0d.svg" alt="kwoc20" height="300" width="300"/>
+<img src="https://kwoc20.kossiitkgp.org/static/media/circle.33e6ce0d.svg" alt="kwoc20" height="300" width="300"/>
   </div>
   
 ## - NJACK WINTER OF CODE (NWOC'20)
